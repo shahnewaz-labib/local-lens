@@ -10,6 +10,7 @@ import { Button } from "./ui/button"
 import { getLocations } from "@/actions/location-auto-complete"
 import { Selection } from "./selection"
 import { searchNearbyWithinCity } from "@/actions/geoapify"
+import { useRouter } from "next/navigation"
 
 const categorySet = new Set<string>()
 
@@ -19,6 +20,7 @@ export default function SearchNearbyAttractions() {
   const [locations, setLocations] = useState<any>()
   const [selectedLocationIndex, setSelectedLocationIndex] = useState(0)
   const [selectedCategories, setSelectedCategories] = useState("")
+  const router = useRouter()
 
   useEffect(() => {
     getlatlon()
@@ -40,14 +42,13 @@ export default function SearchNearbyAttractions() {
   }
 
   const onSearch = async () => {
-    const { lon, lat, place_id } = locations[selectedLocationIndex]
-    const places = await searchNearbyWithinCity(
-      lat,
-      lon,
-      place_id,
-      selectedCategories.replaceAll(" ", "").toLowerCase(),
-    )
-    console.log(places)
+    const { place_id } = locations[selectedLocationIndex]
+    /* const places = await searchNearbyWithinCity( */
+    /*   place_id, */
+    /*   selectedCategories.replaceAll(" ", "").toLowerCase(), */
+    /* ) */
+    const cats = selectedCategories.replaceAll(" ", "").toLowerCase()
+    router.push(`/places/${place_id}?categories=${cats}`)
   }
 
   return (

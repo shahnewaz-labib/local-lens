@@ -19,8 +19,6 @@ export async function searchNearby(lat: string, lon: string) {
 }
 
 export async function searchNearbyWithinCity(
-  lat: string,
-  lon: string,
   place_id: string,
   categories?: string,
 ) {
@@ -33,6 +31,7 @@ export async function searchNearbyWithinCity(
   )
 
   const result = await response.json()
+  if (!result) return []
   return result.features.map(function (f: any) {
     return f.properties
   })
