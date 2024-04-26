@@ -1,16 +1,15 @@
 "use client"
 
-import { Search, SquareArrowOutUpRight } from "lucide-react"
-import { Input } from "./ui/input"
-import { getlatlon } from "@/lib/get-location"
-import { useEffect, useState } from "react"
-import { useAtom } from "jotai"
-import { userLocationAtom } from "@/stores/user-location"
-import { Button } from "./ui/button"
 import { getLocations } from "@/actions/location-auto-complete"
-import { Selection } from "./selection"
-import { searchNearbyWithinCity } from "@/actions/geoapify"
+import { getlatlon } from "@/lib/get-location"
+import { userLocationAtom } from "@/stores/user-location"
+import { useAtom } from "jotai"
+import { Search } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { Selection } from "./selection"
+import { Button } from "./ui/button"
+import { Input } from "./ui/input"
 
 const categorySet = new Set<string>()
 
@@ -20,6 +19,7 @@ export default function SearchNearbyAttractions() {
   const [locations, setLocations] = useState<any>()
   const [selectedLocationIndex, setSelectedLocationIndex] = useState(0)
   const [selectedCategories, setSelectedCategories] = useState("")
+  const [cityLoading, setCityLoading] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -34,19 +34,17 @@ export default function SearchNearbyAttractions() {
 
   const onCitySubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setCityLoading(true)
     const locations = await getLocations(city)
     setSelectedLocationIndex(-1)
     setSelectedCategories("")
     setLocations(locations)
     categorySet.clear()
+    setCityLoading(false)
   }
 
   const onSearch = async () => {
     const { place_id } = locations[selectedLocationIndex]
-    /* const places = await searchNearbyWithinCity( */
-    /*   place_id, */
-    /*   selectedCategories.replaceAll(" ", "").toLowerCase(), */
-    /* ) */
     const cats = selectedCategories.replaceAll(" ", "").toLowerCase()
     router.push(`/places/${place_id}?categories=${cats}`)
   }
@@ -55,7 +53,7 @@ export default function SearchNearbyAttractions() {
     <div className="flex flex-col gap-2">
       <div className="flex gap-2">
         <div className="relative">
-          <form onSubmit={onCitySubmit}>
+          <form onSubmit={onCitySubmit} className="flex gap-2">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
@@ -63,9 +61,10 @@ export default function SearchNearbyAttractions() {
               onChange={(e) => {
                 setCity(e.currentTarget.value)
               }}
-              placeholder="Search city"
+              placeholder="Enter city name or lat,lon"
               className="pl-8 sm:w-[300px] md:w-[500px]"
             />
+            <Button type="submit">Search</Button>
           </form>
         </div>
         <Button
@@ -77,6 +76,9 @@ export default function SearchNearbyAttractions() {
           Use My Location
         </Button>
       </div>
+      {cityLoading && (
+        <p className="mx-auto animate-pulse">Loading Result...</p>
+      )}
       {locations && selectedLocationIndex == -1 && (
         <div className="flex flex-col gap-2">
           <p>Select a location:</p>
@@ -100,12 +102,8 @@ export default function SearchNearbyAttractions() {
         </div>
       )}
       {locations && selectedLocationIndex >= 0 && (
-        <div>
-          <p>Selected Location: {locations[selectedLocationIndex].formatted}</p>
-        </div>
-      )}
-      {selectedLocationIndex >= 0 && (
         <div className="flex flex-col">
+          <p>Selected Location: {locations[selectedLocationIndex].formatted}</p>
           <div className="flex items-center gap-2">
             <p>Add categories:</p>
             <Selection
@@ -123,13 +121,16 @@ export default function SearchNearbyAttractions() {
               }}
             />
           </div>
-          <p>Selected Categories: {selectedCategories}</p>
+
+          {selectedCategories && (
+            <div>
+              <p>Selected Categories: {selectedCategories}</p>
+              <Button onClick={onSearch} className="mt-4 w-full">
+                Search Places
+              </Button>
+            </div>
+          )}
         </div>
-      )}
-      {selectedCategories && (
-        <Button className="w-[500px]" onClick={onSearch}>
-          Search
-        </Button>
       )}
     </div>
   )
