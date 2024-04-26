@@ -31,7 +31,7 @@ export default function SearchNearbyAttractions() {
           onChange={(e) => {
             setLocation(e.currentTarget.value)
           }}
-          placeholder="Search Attractions in a City"
+          placeholder="Search attractions in a city"
           className="pl-8 sm:w-[300px] md:w-[500px]"
         />
       </div>
