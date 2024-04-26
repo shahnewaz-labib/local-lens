@@ -1,7 +1,9 @@
+import SearchNearbyAttractions from "@/components/search-nearby-attractions"
+
 export default function Test() {
-    return (
-        <div>
-            <p>Test Page</p>
-        </div>
-    )
+  return (
+    <div>
+      <SearchNearbyAttractions />
+    </div>
+  )
 }
