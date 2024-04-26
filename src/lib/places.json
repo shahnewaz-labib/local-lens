@@ -1,0 +1,439 @@
+[
+  {
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1703",
+    "street": "West Chatar Road",
+    "lon": 90.41482452502095,
+    "lat": 24.04063885,
+    "formatted": "West Chatar Road, Gazipur - 1703, Bangladesh",
+    "address_line1": "West Chatar Road",
+    "address_line2": "Gazipur - 1703, Bangladesh",
+    "categories": ["education", "education.school"],
+    "details": [],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "grades": "1-4",
+        "osm_id": 1061100941,
+        "amenity": "school",
+        "osm_type": "w",
+        "building:levels": 4
+      }
+    },
+    "distance": 4507,
+    "place_id": "51cc222a7c8c9a5640598c1dc54e670a3840f00102f9018d1d3f3f00000000"
+  },
+  {
+    "name": "Bangabandhu Sheikh Mujibur Rahman Agricultural University (BSMRAU)",
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1703",
+    "suburb": "Salna",
+    "street": "Dhaka-Mymensingh",
+    "lon": 90.3968564,
+    "lat": 24.0375372,
+    "formatted": "Bangabandhu Sheikh Mujibur Rahman Agricultural University (BSMRAU), Dhaka-Mymensingh, Salna, Gazipur - 1703, Bangladesh",
+    "address_line1": "Bangabandhu Sheikh Mujibur Rahman Agricultural University (BSMRAU)",
+    "address_line2": "Dhaka-Mymensingh, Salna, Gazipur - 1703, Bangladesh",
+    "categories": ["education", "education.college"],
+    "details": ["details"],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "osm_id": 10997863405,
+        "amenity": "college",
+        "name:en": "Bangabandhu Sheikh Mujibur Rahman Agricultural University (BSMRAU)",
+        "osm_type": "n",
+        "addr:street": "Dhaka-Mymensingh"
+      }
+    },
+    "name_international": {
+      "en": "Bangabandhu Sheikh Mujibur Rahman Agricultural University (BSMRAU)"
+    },
+    "distance": 4676,
+    "place_id": "5154cd6218669956405977cdb7099c093840f00103f901ed13868f02000000"
+  },
+  {
+    "name": "DUET School",
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1707",
+    "street": "Shahid Zaman Road - Shimultoly Road",
+    "lon": 90.4175952,
+    "lat": 24.0190881,
+    "formatted": "DUET School, Shahid Zaman Road - Shimultoly Road, Gazipur - 1707, Bangladesh",
+    "address_line1": "DUET School",
+    "address_line2": "Shahid Zaman Road - Shimultoly Road, Gazipur - 1707, Bangladesh",
+    "categories": ["education", "education.school"],
+    "details": ["details"],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "osm_id": 5641387522,
+        "amenity": "school",
+        "name:en": "DUET School",
+        "operator": "DUET",
+        "osm_type": "n",
+        "addr:street": "DUET Road",
+        "addr:postcode": 1707,
+        "opening_hours": "Sa-Th 08:00-17:00"
+      }
+    },
+    "opening_hours": "Sa-Th 08:00-17:00",
+    "operator": "DUET",
+    "name_international": {
+      "en": "DUET School"
+    },
+    "distance": 2141,
+    "place_id": "51dcbd37e1b99a564059c8aa2ef5e2043840f00103f90102be405001000000"
+  },
+  {
+    "name": "TalentHut Language Institute",
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1707",
+    "street": "Shahid Zaman Road - Shimultoly Road",
+    "housenumber": "3rd Floor, Akota Super Market",
+    "lon": 90.4173467,
+    "lat": 24.0187529,
+    "formatted": "TalentHut Language Institute, 3rd Floor, Akota Super Market Shahid Zaman Road - Shimultoly Road, Gazipur - 1707, Bangladesh",
+    "address_line1": "TalentHut Language Institute",
+    "address_line2": "3rd Floor, Akota Super Market Shahid Zaman Road - Shimultoly Road, Gazipur - 1707, Bangladesh",
+    "categories": ["education", "education.language_school"],
+    "details": ["details"],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "name": "TalentHut Language Institute",
+        "osm_id": 8321530251,
+        "amenity": "language_school",
+        "website": "https://www.talenthutbd.com/",
+        "osm_type": "n",
+        "addr:city": "Gazipur",
+        "addr:street": "Shimultoly Rd",
+        "language:en": "yes",
+        "addr:postcode": 1707,
+        "opening_hours": "Sa-Th 10:00-21:00",
+        "addr:housenumber": "3rd Floor, Akota Super Market",
+        "opening_hours:covid19": "restricted"
+      }
+    },
+    "website": "https://www.talenthutbd.com/",
+    "opening_hours": "Sa-Th 10:00-21:00",
+    "opening_hours_covid19": "restricted",
+    "distance": 2104,
+    "place_id": "51fce5eeceb59a5640592ba175fdcc043840f00103f9018b7900f00100000092031c54616c656e74487574204c616e677561676520496e73746974757465"
+  },
+  {
+    "name": "DUET Central Library",
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1707",
+    "street": "Shahid Zaman Road - Shimultoly Road",
+    "lon": 90.4191314,
+    "lat": 24.0182486,
+    "formatted": "DUET Central Library, Shahid Zaman Road - Shimultoly Road, Gazipur - 1707, Bangladesh",
+    "address_line1": "DUET Central Library",
+    "address_line2": "Shahid Zaman Road - Shimultoly Road, Gazipur - 1707, Bangladesh",
+    "categories": ["education", "education.library", "internet_access"],
+    "details": ["details", "details.facilities"],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "osm_id": 5641519523,
+        "amenity": "library",
+        "name:en": "DUET Central Library",
+        "website": "https://www.duet.ac.bd/",
+        "osm_type": "n",
+        "addr:postcode": 1707,
+        "internet_access": "wlan"
+      }
+    },
+    "website": "https://www.duet.ac.bd/",
+    "name_international": {
+      "en": "DUET Central Library"
+    },
+    "facilities": {
+      "internet_access": true
+    },
+    "distance": 2056,
+    "place_id": "5182ee810cd39a564059529fb5f0ab043840f00103f901a3c1425001000000"
+  },
+  {
+    "name": "ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয় (ডুয়েট), গাজীপুর",
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1707",
+    "street": "Shahid Zaman Road - Shimultoly Road",
+    "lon": 90.41863852701456,
+    "lat": 24.0176242,
+    "formatted": "Dhaka University of Engineering and Technology (DUET), Gazipur, Shahid Zaman Road - Shimultoly Road, Gazipur - 1707, Bangladesh",
+    "address_line1": "Dhaka University of Engineering and Technology (DUET), Gazipur",
+    "address_line2": "Shahid Zaman Road - Shimultoly Road, Gazipur - 1707, Bangladesh",
+    "categories": ["education", "education.university"],
+    "details": ["details"],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "name": "ঢাকা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয় (ডুয়েট), গাজীপুর",
+        "osm_id": 974288315,
+        "amenity": "university",
+        "name:en": "Dhaka University of Engineering and Technology (DUET), Gazipur",
+        "website": "https://www.duet.ac.bd/",
+        "operator": "Government of Bangladesh",
+        "osm_type": "w",
+        "addr:street": "DUET Road",
+        "addr:postcode": 1707,
+        "opening_hours": "Mo-Su 08:00-18:00"
+      }
+    },
+    "website": "https://www.duet.ac.bd/",
+    "opening_hours": "Mo-Su 08:00-18:00",
+    "operator": "Government of Bangladesh",
+    "name_international": {
+      "en": "Dhaka University of Engineering and Technology (DUET), Gazipur"
+    },
+    "distance": 1848,
+    "place_id": "51e2973ff9ca9a564059fc0a040583043840f00102f901bb75123a0000000092039301e0a6a2e0a6bee0a695e0a6be20e0a6aae0a78de0a6b0e0a695e0a78ce0a6b6e0a6b220e0a69320e0a6aae0a78de0a6b0e0a6afe0a781e0a695e0a78de0a6a4e0a6bf20e0a6ace0a6bfe0a6b6e0a78de0a6ace0a6ace0a6bfe0a6a6e0a78de0a6afe0a6bee0a6b2e0a79f2028e0a6a1e0a781e0a79fe0a787e0a69f292c20e0a697e0a6bee0a69ce0a780e0a6aae0a781e0a6b0"
+  },
+  {
+    "name": "ডুয়েট ২য় ক্যাম্পাস",
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1707",
+    "street": "Fakail-Joydebpur Road",
+    "lon": 90.4228315,
+    "lat": 24.0157599,
+    "formatted": "DUET 2nd Campus, Fakail-Joydebpur Road, Gazipur - 1707, Bangladesh",
+    "address_line1": "DUET 2nd Campus",
+    "address_line2": "Fakail-Joydebpur Road, Gazipur - 1707, Bangladesh",
+    "categories": ["education", "education.college"],
+    "details": ["details"],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "name": "ডুয়েট ২য় ক্যাম্পাস",
+        "osm_id": 10584566705,
+        "amenity": "college",
+        "name:en": "DUET 2nd Campus",
+        "website": "https://www.duet.ac.bd/",
+        "osm_type": "n",
+        "opening_hours": "Sa-We 08:00-18:00"
+      }
+    },
+    "website": "https://www.duet.ac.bd/",
+    "opening_hours": "Sa-We 08:00-18:00",
+    "name_international": {
+      "en": "DUET 2nd Campus"
+    },
+    "distance": 1858,
+    "place_id": "51fe0ddaab0f9b564059718340d708043840f00103f901b1abe37602000000920332e0a6a1e0a781e0a79fe0a787e0a69f20e0a7a8e0a79f20e0a695e0a78de0a6afe0a6bee0a6aee0a78de0a6aae0a6bee0a6b8"
+  },
+  {
+    "name": "Rani Bilashmoni Girls High School",
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1701",
+    "street": "Joydebpur Road",
+    "lon": 90.4248147,
+    "lat": 23.9999523,
+    "formatted": "Rani Bilashmoni Girls High School, Joydebpur Road, Gazipur - 1701, Bangladesh",
+    "address_line1": "Rani Bilashmoni Girls High School",
+    "address_line2": "Joydebpur Road, Gazipur - 1701, Bangladesh",
+    "categories": ["education", "education.school"],
+    "details": [],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "name": "Rani Bilashmoni Girls High School",
+        "osm_id": 4744986419,
+        "amenity": "school",
+        "osm_type": "n"
+      }
+    },
+    "distance": 759,
+    "place_id": "510bd7fe29309b564059557dbbdffcff3740f00103f90133bfd21a0100000092032152616e692042696c6173686d6f6e69204769726c732048696768205363686f6f6c"
+  },
+  {
+    "name": "Rani Bilash Moni Govt. Boys' High School",
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1701",
+    "street": "Rathkhola Sadar Hospital Road",
+    "lon": 90.4248604,
+    "lat": 23.9994124,
+    "formatted": "Rani Bilash Moni Govt. Boys' High School, Rathkhola Sadar Hospital Road, Gazipur - 1701, Bangladesh",
+    "address_line1": "Rani Bilash Moni Govt. Boys' High School",
+    "address_line2": "Rathkhola Sadar Hospital Road, Gazipur - 1701, Bangladesh",
+    "categories": ["education", "education.school"],
+    "details": ["details"],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "name": "Rani Bilash Moni Govt. Boys' High School",
+        "osm_id": 2669382753,
+        "amenity": "school",
+        "name:bn": "রাণী বিলাসমণি সরকারি বালক উচ্চ বিদ্যালয়",
+        "osm_type": "n"
+      }
+    },
+    "name_international": {
+      "bn": "রাণী বিলাসমণি সরকারি বালক উচ্চ বিদ্যালয়"
+    },
+    "distance": 764,
+    "place_id": "5164d7ace9309b56405986a5b67dd9ff3740f00103f901618c1b9f0000000092032852616e692042696c617368204d6f6e6920476f76742e20426f7973272048696768205363686f6f6c"
+  },
+  {
+    "name": "Joydevpur Govt. Girls' High School",
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1701",
+    "street": "College Road",
+    "lon": 90.4260877,
+    "lat": 23.9972957,
+    "formatted": "Joydevpur Govt. Girls' High School, College Road, Gazipur - 1701, Bangladesh",
+    "address_line1": "Joydevpur Govt. Girls' High School",
+    "address_line2": "College Road, Gazipur - 1701, Bangladesh",
+    "categories": ["education", "education.school"],
+    "details": ["details"],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "name": "Joydevpur Govt. Girls' High School",
+        "osm_id": 2669390307,
+        "amenity": "school",
+        "name:bn": "জয়দেবপুর সরকারি বালিকা উচ্চ বিদ্যালয়",
+        "osm_type": "n"
+      }
+    },
+    "name_international": {
+      "bn": "জয়দেবপুর সরকারি বালিকা উচ্চ বিদ্যালয়"
+    },
+    "distance": 929,
+    "place_id": "51942e5805459b564059285f61c54eff3740f00103f901e3a91b9f000000009203224a6f7964657670757220476f76742e204769726c73272048696768205363686f6f6c"
+  },
+  {
+    "name": "BRRI High School",
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1701",
+    "street": "Road behind cooperative",
+    "lon": 90.4088571,
+    "lat": 23.9905141,
+    "formatted": "BRRI High School, Road behind cooperative, Gazipur - 1701, Bangladesh",
+    "address_line1": "BRRI High School",
+    "address_line2": "Road behind cooperative, Gazipur - 1701, Bangladesh",
+    "categories": ["education", "education.school"],
+    "details": [],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "name": "BRRI High School",
+        "osm_id": 7108468335,
+        "amenity": "school",
+        "osm_type": "n"
+      }
+    },
+    "distance": 1340,
+    "place_id": "51324ff8b62a9a564059b728035592fd3740f00103f9016f9eb2a701000000920310425252492048696768205363686f6f6c"
+  },
+  {
+    "name": "Directions East Chandana Primary School",
+    "country": "Bangladesh",
+    "country_code": "bd",
+    "state": "Dhaka Division",
+    "county": "Gazipur District",
+    "city": "Gazipur",
+    "postcode": "1701",
+    "suburb": "Chandona",
+    "street": "Alhaj Fazar Ali Rd",
+    "lon": 90.3914054,
+    "lat": 23.9814016,
+    "formatted": "Directions East Chandana Primary School, Alhaj Fazar Ali Rd, Chandona, Gazipur - 1701, Bangladesh",
+    "address_line1": "Directions East Chandana Primary School",
+    "address_line2": "Alhaj Fazar Ali Rd, Chandona, Gazipur - 1701, Bangladesh",
+    "categories": ["education", "education.school"],
+    "details": [],
+    "datasource": {
+      "sourcename": "openstreetmap",
+      "attribution": "© OpenStreetMap contributors",
+      "license": "Open Database License",
+      "url": "https://www.openstreetmap.org/copyright",
+      "raw": {
+        "name": "Directions East Chandana Primary School",
+        "osm_id": 6056997434,
+        "amenity": "school",
+        "osm_type": "n"
+      }
+    },
+    "distance": 3333,
+    "place_id": "51931e3cc90c995640593cada1223dfb3740f00103f9013a72066901000000920327446972656374696f6e732045617374204368616e64616e61205072696d617279205363686f6f6c"
+  }
+]

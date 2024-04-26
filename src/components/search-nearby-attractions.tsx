@@ -157,7 +157,6 @@ export default function SearchNearbyAttractions() {
               onSelectedChange={(value: string) => {
                 if (!value) return
                 categorySet.add(value)
-                console.log(categorySet)
                 if (selectedCategories.length === 0) {
                   setSelectedCategories(value)
                   return
