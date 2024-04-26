@@ -1,7 +1,6 @@
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
 
 export default function Places({ places }: { places: any }) {
-  console.log(places)
   return (
     <div className="m-2 w-1/2">
       <p className="m-2 ml-6">List of places:</p>
