@@ -1,15 +1,16 @@
 "use client"
 
 import { getlatlon } from "@/lib/get-location"
-import { useEffect, useState } from "react"
+import { userLocationAtom } from "@/stores/user-location"
+import { useAtom } from "jotai"
+import { useEffect } from "react"
 
 export default function About() {
-  const [location, setLocation] = useState({ lat: 0, lng: 0 })
+  const [userLocation, setUserLocation] = useAtom(userLocationAtom)
   useEffect(() => {
     getlatlon()
       .then(({ lat, lng }) => {
-        console.log(`Latitude: ${lat}, Longitude: ${lng}`)
-        setLocation({ lat, lng })
+        setUserLocation({ lat, lng })
       })
       .catch((error) => {
         console.error(error)
@@ -18,8 +19,8 @@ export default function About() {
 
   return (
     <div>
-      <p>{location.lat}</p>
-      <p>{location.lng}</p>
+      <p>{userLocation.lat}</p>
+      <p>{userLocation.lng}</p>
     </div>
   )
 }

@@ -2,9 +2,13 @@
 
 import { getlatlon } from "@/lib/get-location"
 import { getLocationFromLatLng } from "@/lib/utils"
+import { userLocationAtom } from "@/stores/user-location"
+import { useAtom } from "jotai"
 import { useEffect, useState } from "react"
 
 export const MyLocation = () => {
+  const [userLocation, setUserLocation] = useAtom(userLocationAtom)
+
   const [location, setLocation] = useState({
     lat: 0,
     lng: 0,
@@ -18,7 +22,7 @@ export const MyLocation = () => {
       .then(({ lat, lng }) => {
         getLocationFromLatLng({ lat: lat, lng: lng })
           .then((data) => {
-            console.log("get loc", data.locality, data.city, data.countryName)
+            setUserLocation({ lat, lng })
 
             window.localStorage.setItem("locality", data.locality)
             window.localStorage.setItem("city", data.city)
