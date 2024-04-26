@@ -7,5 +7,5 @@ export default function Loading({
   text?: string
   className?: string
 }) {
-  return <p className={cn("animate-pulse", className)}>{text}</p>
+  return <p className={cn("animate-pulse m-4", className)}>{text}</p>
 }
