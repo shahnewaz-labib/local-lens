@@ -1,28 +1,31 @@
-"use client"
-import React, { useEffect, useState } from 'react';
-import { searchNearby, searchNearbyWithinCity } from '@/actions/geoapify';
+'use client'
+
+import React, { useRef, useEffect, useState } from 'react';
+import "leaflet/dist/leaflet.css";
+
+import L from "leaflet";
+
+import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
+
 export default function Test() {
 
-  const [attraction, setAttraction] = useState([]);
-  useEffect(() => {
-    searchNearbyWithinCity("90.34686535627966", "23.81864335",    "516c2a4c40cf9956405938872a3fa9c83740f00101f901d17dd00000000000c0020892031fe0a6a2e0a6bee0a695e0a6be20e0a6aee0a6b9e0a6bee0a6a8e0a697e0a6b0")
-      .then((result) => {
-        console.log("result");
-        setAttraction(result)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-  }, [])
+  const map = L.map('my-map').setView([48.1500327, 11.5753989], 10);
+  const isRetina = L.Browser.retina;
+  const baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey={apiKey}";
+  const retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey={apiKey}";
+  L.tileLayer(isRetina ? retinaUrl : baseUrl, {
+      attribution: 'Powered by <a href="https://www.geoapify.com/" target="_blank">Geoapify</a> | <a href="https://openmaptiles.org/" target="_blank">© OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap</a> contributors',
+      apiKey: process.env.GEOAPIFY_API_KEY, 
+      maxZoom: 20, 
+      id: 'osm-bright'
+  }).addTo(map);
+  
+  
   
   return (
     <div>
       <h1>Test 2</h1>
-      {attraction.map((attraction) => (
-        <div key={attraction.place_id}>
-          {attraction.name}
-        </div>
-      ))}
+      <Image src={image} alt="Vercel Logo" width={720} height={720} />
     </div>
   )
 }
