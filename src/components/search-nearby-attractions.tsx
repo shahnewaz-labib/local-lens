@@ -12,7 +12,7 @@ import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { FaLocationArrow, FaSearch } from "react-icons/fa"
-import { IoLocationSharp } from "react-icons/io5";
+import { IoLocationSharp } from "react-icons/io5"
 
 const categorySet = new Set<string>()
 const min_radius = 1
@@ -149,11 +149,11 @@ export default function SearchNearbyAttractions() {
 
       {locations && selectedLocationIndex >= 0 && (
         <div className="flex flex-col">
-          <div className="flex items-center gap-4 mt-4">
+          <div className="mt-4 flex items-center gap-4">
             <p>Select categories:</p>
             <Selection
               items={categories.filter((cat) => !categorySet.has(cat))}
-              placeholder="Category listing"
+              placeholder="Category Listing"
               onSelectedChange={(value: string) => {
                 if (!value) return
                 categorySet.add(value)
@@ -165,11 +165,24 @@ export default function SearchNearbyAttractions() {
                 setSelectedCategories(`${selectedCategories}, ${value}`)
               }}
             />
+            {selectedCategories && (
+              <Button
+                className="w-20"
+                onClick={() => {
+                  setSelectedCategories("")
+                  categorySet.clear()
+                }}
+              >
+                Clear
+              </Button>
+            )}
           </div>
 
           {selectedCategories && (
             <div className="mt-4">
-              <p>Selected Categories: <code>{selectedCategories}</code></p>
+              <p>
+                Selected Categories: <code>{selectedCategories}</code>
+              </p>
               <Button onClick={onSearch} className="mt-4 w-full">
                 Search Places
               </Button>
