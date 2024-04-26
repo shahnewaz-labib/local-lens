@@ -16,11 +16,12 @@ export async function searchNearby(
   radius = Math.round(radius * 1000)
   const key = `nearby:${lat}-${lon}-${categories}-${radius}`
   const cached = await redis.get(key)
-  // if (cached) {
-  //   return cached
-  // }
+  if (cached) {
+    return cached
+  }
   const url = `https://api.geoapify.com/v2/places?categories=${categories}&filter=circle:${lon},${lat},${radius}&limit=20&apiKey=${geoApiFiKey}`
   const response = await fetch(url)
+  if (!response.ok) return []
   const result = await response.json()
 
   if (!result) return []
@@ -48,7 +49,7 @@ export async function searchNearbyWithinCity(
   const response = await fetch(
     `https://api.geoapify.com/v2/places?categories=${categories}&filter=place:${place_id}&limit=20&apiKey=${geoApiFiKey}`,
   )
-
+  if (!response.ok) return []
   const result = await response.json()
   if (!result) return []
   const ret = result.features.map(function (f: any) {
