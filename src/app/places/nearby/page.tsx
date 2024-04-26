@@ -18,7 +18,7 @@ export default function NearbyPlaces() {
   const [places, setPlaces] = useState<any>()
   const router = useRouter()
   if (!lat || !lon || !categories) {
-    router.push("/test")
+    router.push("/")
     return
   }
 

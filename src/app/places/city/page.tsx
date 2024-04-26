@@ -17,7 +17,7 @@ export default function PlacesInCity() {
   const [isLoading, setIsLoading] = useState(true)
 
   if (!place_id || !categories) {
-    router.push("/test")
+    router.push("/")
     return
   }
 

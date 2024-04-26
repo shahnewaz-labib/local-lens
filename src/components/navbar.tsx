@@ -6,6 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { SignedIn, UserButton } from "@clerk/nextjs"
 
 const links = [
+  { text: "Home", href: "/" },
   {
     text: "Github",
     href: "https://github.com/IUTCS-24-OpenAPI-Hackathon/IUT-AsyncLads",

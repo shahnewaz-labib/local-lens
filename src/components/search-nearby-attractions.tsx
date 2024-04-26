@@ -53,19 +53,23 @@ export default function SearchNearbyAttractions() {
   const onCitySubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setCityLoading(true)
-    const locations = await getLocations(city)
+    const locationsFromCity = await getLocations(city)
     setSelectedLocationIndex(-1)
     setSelectedCategories(preSelectedCategories)
-    setLocations(locations)
+    setLocations(locationsFromCity)
     categorySet.clear()
     setCityLoading(false)
   }
 
   const onSearch = async (inMap: boolean) => {
-    const { lat, lon, place_id } = locations[selectedLocationIndex]
+    const { lat, lon } = locations[selectedLocationIndex]
     const cats = selectedCategories.replaceAll(" ", "").toLowerCase()
     if (inMap === true) {
-      router.push(`/places/map?categories=${cats}&lat=${lat}&lon=${lon}`)
+      let url = `/places/map?categories=${cats}&lat=${lat}&lon=${lon}`
+      if (isChecked === true) {
+        url = url + `&radius=${radius}`
+      }
+      router.push(url)
       return
     }
     if (isChecked === true) {
@@ -138,7 +142,7 @@ export default function SearchNearbyAttractions() {
       {cityLoading && (
         <p className="mx-auto animate-pulse">Loading Result...</p>
       )}
-      {locations && selectedLocationIndex == -1 && (
+      {locations.length > 0 && selectedLocationIndex == -1 && (
         <div className="flex flex-col gap-2">
           <p>Select a location:</p>
           <div className="flex flex-col gap-2">

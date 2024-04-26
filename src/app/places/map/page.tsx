@@ -6,9 +6,8 @@ import "mapbox-gl/dist/mapbox-gl.css"
 
 import MapComponent from "@/components/map/map"
 import { useSearchParams } from "next/navigation"
-import places from "@/lib/places.json"
 import { useEffect, useState } from "react"
-import { searchNearby } from "@/actions/geoapify"
+import { searchNearby, searchNearbyWithinCity } from "@/actions/geoapify"
 import Loading from "@/components/loading"
 import { useAtomValue } from "jotai"
 import { selectedPlaceIdAtom } from "@/stores/selected-location"
@@ -22,25 +21,29 @@ export default function Page() {
   const selectedPlaceId = useAtomValue(selectedPlaceIdAtom)
   const [places, setPlaces] = useState<any>()
   const [isLoading, setIsLoading] = useState(true)
-  if (!radius) {
-    radius = "20"
-  }
 
-  if (!lat || !lon || !categories) {
-    return <p>lat, lon or categories not provided in search param</p>
+  if (!categories) {
+    return <p>categories not provided in search param</p>
   }
 
   useEffect(() => {
-    searchNearby(
-      selectedPlaceId,
-      Number(lat),
-      Number(lon),
-      categories,
-      Number(radius),
-    ).then((data: any) => {
-      setIsLoading(false)
-      setPlaces(data)
-    })
+    if (radius && lat && lon) {
+      searchNearby(
+        selectedPlaceId,
+        Number(lat),
+        Number(lon),
+        categories,
+        Number(radius),
+      ).then((data: any) => {
+        setIsLoading(false)
+        setPlaces(data)
+      })
+    } else {
+      searchNearbyWithinCity(selectedPlaceId, categories).then((data) => {
+        setIsLoading(false)
+        setPlaces(data)
+      })
+    }
   }, [])
 
   return (
