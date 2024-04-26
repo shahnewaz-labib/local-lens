@@ -8,12 +8,14 @@ import { useAtom } from "jotai"
 import { userLocationAtom } from "@/stores/user-location"
 import { Button } from "./ui/button"
 import { getLocations } from "@/actions/location-auto-complete"
+import { Selection } from "./selection"
 
 export default function SearchNearbyAttractions() {
   const [userLocation, setUserLocation] = useAtom(userLocationAtom)
   const [city, setCity] = useState("")
   const [locations, setLocations] = useState<any>()
   const [selectedLocationIndex, setSelectedLocationIndex] = useState(-1)
+  const [selectedCategory, setSelectedCategory] = useState("")
 
   useEffect(() => {
     getlatlon()
@@ -28,6 +30,8 @@ export default function SearchNearbyAttractions() {
   const onCitySubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const locations = await getLocations(city)
+    setSelectedLocationIndex(-1)
+    setSelectedCategory("")
     setLocations(locations)
   }
 
@@ -79,8 +83,43 @@ export default function SearchNearbyAttractions() {
         </div>
       )}
       {locations && selectedLocationIndex >= 0 && (
-        <p>Selected Location: {locations[selectedLocationIndex].formatted}</p>
+        <div>
+          <p>Selected Location: {locations[selectedLocationIndex].formatted}</p>
+        </div>
+      )}
+      {locations && selectedLocationIndex >= 0 && (
+        <div className="flex gap-2">
+          <Selection
+            items={categories}
+            placeholder="Select category"
+            selectedItem={selectedCategory}
+            setSelectedItem={setSelectedCategory}
+          />
+          {selectedCategory && <Button>Search</Button>}
+        </div>
       )}
     </div>
   )
 }
+
+const categories = [
+  "Healthcare",
+  "Accommodation",
+  "Activity",
+  "Airport",
+  "Commercial",
+  "Catering",
+  "Heritage",
+  "Leisure",
+  "Natural",
+  "Office",
+  "Parking",
+  "Pet",
+  "Tourism",
+  "Religion",
+  "Camping",
+  "Amenity",
+  "Beach",
+  "Sport",
+  "Production",
+]

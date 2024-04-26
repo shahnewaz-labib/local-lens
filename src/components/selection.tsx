@@ -5,27 +5,23 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
 
 export function Selection({
   items,
-  onSelectedChange,
   placeholder,
   selectedItem,
   setSelectedItem,
 }: {
   items: string[]
-  onSelectedChange: (value: string) => void
   placeholder: string
   selectedItem: string
   setSelectedItem: React.Dispatch<React.SetStateAction<string>>
 }) {
   const handleSelectChange = (value: string) => {
     setSelectedItem(value)
-    onSelectedChange(value)
   }
 
   return (
