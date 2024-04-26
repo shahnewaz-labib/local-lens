@@ -1,9 +1,9 @@
-import { MyLocation } from "@/components/location"
+import SearchNearbyAttractions from "@/components/search-nearby-attractions"
 
-export default async function Home() {
+export default function Test() {
   return (
-    <div>
-      Your location: <MyLocation />
+    <div className="flex flex-col items-center justify-center p-4">
+      <SearchNearbyAttractions />
     </div>
   )
 }

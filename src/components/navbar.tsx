@@ -7,6 +7,10 @@ import { SignedIn, UserButton } from "@clerk/nextjs"
 
 const links = [
   {
+    text: "Github",
+    href: "https://github.com/IUTCS-24-OpenAPI-Hackathon/IUT-AsyncLads",
+  },
+  {
     text: "Submit Local Attraction",
     href: "/places/submit",
   },
