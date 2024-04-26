@@ -3,14 +3,15 @@
 import { searchNearbyWithinCity } from "@/actions/geoapify"
 import Loading from "@/components/loading"
 import Places from "@/components/places"
-import { useParams, useRouter, useSearchParams } from "next/navigation"
+import { selectedPlaceIdAtom } from "@/stores/selected-location"
+import { useAtomValue } from "jotai"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function PlacesInCity() {
-  const params = useParams()
   const searchParams = useSearchParams()
   const categories = searchParams.get("categories")
-  const place_id = params.place_id as string
+  const place_id = useAtomValue(selectedPlaceIdAtom)
   const router = useRouter()
   const [places, setPlaces] = useState<any>()
   const [isLoading, setIsLoading] = useState(true)

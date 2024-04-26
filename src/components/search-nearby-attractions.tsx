@@ -4,7 +4,7 @@ import { getLocations } from "@/actions/location-auto-complete"
 import { Checkbox } from "@/components/ui/checkbox"
 import { getlatlon } from "@/lib/get-location"
 import { userLocationAtom } from "@/stores/user-location"
-import { useAtom } from "jotai"
+import { useAtom, useSetAtom } from "jotai"
 import { Search } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -14,6 +14,7 @@ import { Selection } from "./selection"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { categories } from "@/lib/categories"
+import { selectedPlaceIdAtom } from "@/stores/selected-location"
 
 const categorySet = new Set<string>(categories.slice(0, 3))
 let preSelectedCategories = categories[0]
@@ -27,12 +28,13 @@ export default function SearchNearbyAttractions() {
   const [userLocation, setUserLocation] = useAtom(userLocationAtom)
   const [city, setCity] = useState("")
   const [locations, setLocations] = useState<any>()
-  const [selectedLocationIndex, setSelectedLocationIndex] = useState(0)
+  const [selectedLocationIndex, setSelectedLocationIndex] = useState(-1)
   const [selectedCategories, setSelectedCategories] = useState("")
   const [cityLoading, setCityLoading] = useState(false)
   const [isChecked, setIsChecked] = useState(false)
   const [radius, setRadius] = useState(min_radius)
   const router = useRouter()
+  const setSelectedPlaceId = useSetAtom(selectedPlaceIdAtom)
 
   useEffect(() => {
     getlatlon()
@@ -68,7 +70,7 @@ export default function SearchNearbyAttractions() {
       )
       return
     }
-    router.push(`/places/${place_id}?categories=${cats}`)
+    router.push(`/places/city?categories=${cats}`)
   }
 
   return (
@@ -143,6 +145,7 @@ export default function SearchNearbyAttractions() {
                   className="flex w-min bg-primary-foreground px-2"
                   onClick={() => {
                     setSelectedLocationIndex(ind)
+                    setSelectedPlaceId(city.place_id)
                     setCity(city.formatted)
                   }}
                 >
