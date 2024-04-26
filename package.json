@@ -1,49 +1,61 @@
 {
-    "name": "todo-next",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "dev": "next dev --turbo",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint",
-        "db:start": "docker compose up -d",
-        "db:stop": "docker compose stop",
-        "db:migrate:deploy": "prisma migrate deploy",
-        "db:migrate": "prisma migrate dev",
-        "db:generate": "prisma generate"
-    },
-    "dependencies": {
-        "@clerk/nextjs": "^5.0.2",
-        "@clerk/themes": "^2.0.1",
-        "@hookform/resolvers": "^3.3.4",
-        "@prisma/client": "5.12.1",
-        "@radix-ui/react-checkbox": "^1.0.4",
-        "@radix-ui/react-dialog": "^1.0.5",
-        "@radix-ui/react-dropdown-menu": "^2.0.6",
-        "@radix-ui/react-label": "^2.0.2",
-        "@radix-ui/react-select": "^2.0.0",
-        "@radix-ui/react-slot": "^1.0.2",
-        "@radix-ui/react-toast": "^1.1.5",
-        "class-variance-authority": "^0.7.0",
-        "clsx": "^2.1.1",
-        "lucide-react": "^0.372.0",
-        "next": "14.2.2",
-        "next-themes": "^0.3.0",
-        "react": "^18",
-        "react-dom": "^18",
-        "react-hook-form": "^7.51.3",
-        "tailwind-merge": "^2.3.0",
-        "tailwindcss-animate": "^1.0.7",
-        "zod": "^3.23.3"
-    },
-    "devDependencies": {
-        "@types/node": "^20",
-        "@types/react": "^18",
-        "@types/react-dom": "^18",
-        "postcss": "^8",
-        "prisma": "^5.12.1",
-        "tailwindcss": "^3.4.1",
-        "typescript": "^5"
-    }
+  "name": "todo-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:start": "docker compose up -d",
+    "db:stop": "docker compose stop",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,tsx,json,css,prisma}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^5.0.2",
+    "@clerk/themes": "^2.0.1",
+    "@hookform/resolvers": "^3.3.4",
+    "@prisma/client": "5.12.1",
+    "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.5",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.372.0",
+    "next": "14.2.2",
+    "next-themes": "^0.3.0",
+    "prettier-plugin-prisma": "^5.0.0",
+    "prettier-plugin-tailwindcss": "^0.5.14",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.51.3",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "lint-staged": "^15.2.2",
+    "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prisma": "^5.12.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.2"
+  }
 }
