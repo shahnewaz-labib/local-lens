@@ -22,9 +22,6 @@ export default function MapComponent({
   lon: string
   places: any
 }) {
-  if (!lat || !lon) {
-    return <p>lat, lon not provided in search param</p>
-  }
   const [selectedMarker, setSelectedMarker] = useState<any>(null)
   const mapRef = useRef(null)
   const zoomToSelectedLoc = (e: any, location: any, index: number) => {

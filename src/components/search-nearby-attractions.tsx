@@ -1,20 +1,25 @@
 "use client"
 
 import { getLocations } from "@/actions/location-auto-complete"
+import { Checkbox } from "@/components/ui/checkbox"
 import { getlatlon } from "@/lib/get-location"
 import { userLocationAtom } from "@/stores/user-location"
 import { useAtom } from "jotai"
 import { Search } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { FaSearch } from "react-icons/fa"
+import { IoLocationSharp } from "react-icons/io5"
 import { Selection } from "./selection"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
-import { FaLocationArrow, FaSearch } from "react-icons/fa"
-import { IoLocationSharp } from "react-icons/io5"
+import { categories } from "@/lib/categories"
 
-const categorySet = new Set<string>()
+const categorySet = new Set<string>(categories.slice(0, 3))
+let preSelectedCategories = categories[0]
+for (let i = 1; i < 3; i++) {
+  preSelectedCategories = preSelectedCategories + ", " + categories[i]
+}
 const min_radius = 1
 const max_radious = 50
 
@@ -44,15 +49,19 @@ export default function SearchNearbyAttractions() {
     setCityLoading(true)
     const locations = await getLocations(city)
     setSelectedLocationIndex(-1)
-    setSelectedCategories("")
+    setSelectedCategories(preSelectedCategories)
     setLocations(locations)
     categorySet.clear()
     setCityLoading(false)
   }
 
-  const onSearch = async () => {
+  const onSearch = async (inMap: boolean) => {
     const { lat, lon, place_id } = locations[selectedLocationIndex]
     const cats = selectedCategories.replaceAll(" ", "").toLowerCase()
+    if (inMap === true) {
+      router.push(`/places/map?categories=${cats}&lat=${lat}&lon=${lon}`)
+      return
+    }
     if (isChecked === true) {
       router.push(
         `/places/nearby?categories=${cats}&lat=${lat}&lon=${lon}&radius=${radius}`,
@@ -182,9 +191,14 @@ export default function SearchNearbyAttractions() {
               <p>
                 Selected Categories: <code>{selectedCategories}</code>
               </p>
-              <Button onClick={onSearch} className="mt-4 w-full">
-                Search Places
-              </Button>
+              <div className="mt-4 flex gap-4">
+                <Button onClick={() => onSearch(false)} className="w-1/2">
+                  Search Places
+                </Button>
+                <Button onClick={() => onSearch(true)} className="w-1/2">
+                  See In Map
+                </Button>
+              </div>
             </div>
           )}
         </div>
@@ -192,26 +206,3 @@ export default function SearchNearbyAttractions() {
     </div>
   )
 }
-
-const categories = [
-  "Healthcare",
-  "Accommodation",
-  "Education",
-  "Activity",
-  "Airport",
-  "Commercial",
-  "Catering",
-  "Heritage",
-  "Leisure",
-  "Natural",
-  "Office",
-  "Parking",
-  "Pet",
-  "Tourism",
-  "Religion",
-  "Camping",
-  "Amenity",
-  "Beach",
-  "Sport",
-  "Production",
-].toSorted()

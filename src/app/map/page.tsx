@@ -14,7 +14,7 @@ export default function Page() {
   const lon = searchParams.get("lon")
 
   if (!lat || !lon) {
-    return <p>Loading...</p>
+    return <p>lat, lon not provided in search param</p>
   }
 
   return (
