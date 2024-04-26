@@ -74,7 +74,8 @@ export default function Page() {
         <p>City: {locations[selectedLocationIndex].formatted}</p>
       )}
       {selectedLocationIndex === -1 && (
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2">
+          <p>Select the city that the place belongs to</p>
           <div className="relative">
             <form onSubmit={onCitySubmit} className="flex gap-2">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
