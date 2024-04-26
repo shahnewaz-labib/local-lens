@@ -13,6 +13,8 @@ export default function SearchNearbyAttractions() {
   const [userLocation, setUserLocation] = useAtom(userLocationAtom)
   const [city, setCity] = useState("")
   const [locations, setLocations] = useState<any>()
+  const [selectedLocationIndex, setSelectedLocationIndex] = useState(-1)
+
   useEffect(() => {
     getlatlon()
       .then(({ lat, lng }) => {
@@ -55,24 +57,29 @@ export default function SearchNearbyAttractions() {
           Use My Location
         </Button>
       </div>
-      {locations && (
+      {locations && selectedLocationIndex == -1 && (
         <div className="flex flex-col gap-2">
-          <p>Search Result:</p>
+          <p>Select a location:</p>
           <div className="flex flex-col gap-2">
-            {locations.map((city: any) => {
+            {locations.map((city: any, ind: number) => {
               return (
-                <div className="flex w-min bg-primary-foreground px-2">
+                <button
+                  className="flex w-min bg-primary-foreground px-2"
+                  onClick={() => {
+                    setSelectedLocationIndex(ind)
+                  }}
+                >
                   <p className="w-[300px] px-4 py-2 md:w-[600px]">
                     {city.formatted}
                   </p>
-                  <button title="Find Attraction Places">
-                    <SquareArrowOutUpRight />
-                  </button>
-                </div>
+                </button>
               )
             })}
           </div>
         </div>
+      )}
+      {locations && selectedLocationIndex >= 0 && (
+        <p>Selected Location: {locations[selectedLocationIndex].formatted}</p>
       )}
     </div>
   )
