@@ -11,6 +11,8 @@ import { Selection } from "./selection"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
+import { FaLocationArrow, FaSearch } from "react-icons/fa"
+import { IoLocationSharp } from "react-icons/io5";
 
 const categorySet = new Set<string>()
 const min_radius = 1
@@ -61,7 +63,7 @@ export default function SearchNearbyAttractions() {
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="mt-4 flex flex-col gap-2">
       <div className="flex gap-2">
         <div className="relative">
           <form onSubmit={onCitySubmit} className="flex gap-2">
@@ -75,7 +77,10 @@ export default function SearchNearbyAttractions() {
               placeholder="Enter city name or lat,lon"
               className="pl-8 sm:w-[300px] md:w-[500px]"
             />
-            <Button type="submit">Search</Button>
+            <Button type="submit">
+              <FaSearch className="mr-2" />
+              Search
+            </Button>
           </form>
         </div>
         <Button
@@ -84,10 +89,10 @@ export default function SearchNearbyAttractions() {
             setCity(`${userLocation.lat}, ${userLocation.lng}`)
           }}
         >
-          Use My Location
+          <IoLocationSharp className="mr-2 text-lg" /> Use My Location
         </Button>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="mt-2 flex items-center space-x-2">
         <Checkbox
           id="terms"
           checked={isChecked}
@@ -97,7 +102,7 @@ export default function SearchNearbyAttractions() {
           htmlFor="terms"
           className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
         >
-          Set Redius (km)
+          Set Radius (km)
         </label>
         {isChecked && (
           <div className="ml-auto">
