@@ -7,16 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum TodoStatus {
-    NEW
-    ACTIVE
-    PAUSED
-    COMPLETED
-}
-
-model Todo {
-    id Int @id @default(autoincrement())
-    name String
-    description String
-    status TodoStatus
+model Place {
+  place_id  String @id
+  formatted String
+  postcode  Int
+  street    String
+  lat       Float
+  lon       Float
 }

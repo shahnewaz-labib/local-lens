@@ -18,9 +18,10 @@ import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 import { useState } from "react"
 import { FaSearch } from "react-icons/fa"
+import { submitPlace } from "@/actions/submit-place"
 
 const formSchema = z.object({
-  name: z.string().min(2, {
+  formatted: z.string().min(2, {
     message: "name must be at least 2 characters.",
   }),
   street: z
@@ -55,17 +56,23 @@ export default function Page() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      formatted: "",
       /* postcode: 1700, */
       /* lat: 23.9486206, */
       /* lon: 90.3798759, */
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const placeInfo = {
+      ...values,
+      place_id: locations[selectedLocationIndex].place_id,
+    }
+
+    fetch("/api/place", {
+      method: "POST",
+      body: JSON.stringify(placeInfo),
+    })
   }
 
   return (
@@ -128,7 +135,7 @@ export default function Page() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
-              name="name"
+              name="formatted"
               render={({ field }) => (
                 <FormItem>
                   <div className="flex items-center gap-2">
