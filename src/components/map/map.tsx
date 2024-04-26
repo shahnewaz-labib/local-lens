@@ -12,6 +12,37 @@ import Map, {
   Popup,
 } from "react-map-gl"
 import styles from "./styles.module.css"
+import {
+  FaDumbbell,
+  FaFutbol,
+  FaGraduationCap,
+  FaHotel,
+  FaMosque,
+  FaPlaneDeparture,
+  FaUtensils,
+} from "react-icons/fa"
+import { IoLocationSharp } from "react-icons/io5"
+
+export function MapPinIcon({ place }: { place: any }) {
+  const faFontSize = 30
+  if (place.categories.includes("airport")) {
+    return <FaPlaneDeparture size={faFontSize} className="text-blue-500" />
+  } else if (place.categories.includes("catering")) {
+    return <FaUtensils size={faFontSize} />
+  } else if (place.categories.includes("accommodation")) {
+    return <FaHotel size={faFontSize} className="text-lime-600" />
+  } else if (place.categories.includes("education")) {
+    return <FaGraduationCap size={faFontSize} className="text-gray-500" />
+  } else if (place.categories.includes("sport.fitness")) {
+    return <FaDumbbell size={faFontSize} className="text-blue-900" />
+  } else if (place.categories.includes("sport")) {
+    return <FaFutbol size={faFontSize} className="text-purple-900" />
+  } else if (place.categories.includes("religion.place_of_worship.islam")) {
+    return <FaMosque size={faFontSize} className="text-teal-900" />
+  }
+  return <IoLocationSharp size={30} />
+  // TODO: more custom fonts can be added
+}
 
 export default function MapComponent({
   lat,
@@ -57,7 +88,7 @@ export default function MapComponent({
                 className="cursor-pointer text-red-500"
                 onClick={(e) => zoomToSelectedLoc(e, place, index)}
               >
-                <MapPin />
+                <MapPinIcon place={place} />
               </button>
             </Marker>
           )
