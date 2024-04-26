@@ -1,21 +1,36 @@
 "use server"
 
+import { redis } from "@/config/redis"
+
 const geoApiFiKey = process.env.GEOAPIFY_API_KEY!
 
-export async function searchNearby(lat: string, lon: string) {
-  const requestOptions = {
-    method: "GET",
+export async function searchNearby(
+  lat: number,
+  lon: number,
+  categories: string,
+  radius?: number,
+) {
+  if (!radius) {
+    radius = 10
   }
-  console.log(process.env.GEOAPIFY_API_KEY)
+  radius = Math.round(radius * 1000)
+  const key = `nearby:${lat}-${lon}-${categories}-${radius}`
+  const cached = await redis.get(key)
+  if (cached) {
+    return cached
+  }
+
   const response = await fetch(
-    `https://api.geoapify.com/v2/places?categories=tourism.information,tourism.attraction&filter=circle:${lat},${lon},50000&bias=proximity:${lat},${lon}&limit=20&apiKey=` +
-      process.env.GEOAPIFY_API_KEY,
-    requestOptions,
+    `https://api.geoapify.com/v2/places?categories=${categories}&filter=circle:${lon},${lat},${radius}&limit=20&apiKey=${geoApiFiKey}`,
   )
   const result = await response.json()
-  return result.features.map(function (f: any) {
+  if (!result) return []
+  const ret = result.features.map(function (f: any) {
     return f.properties
   })
+
+  await redis.set(key, ret)
+  return ret
 }
 
 export async function searchNearbyWithinCity(
@@ -25,14 +40,22 @@ export async function searchNearbyWithinCity(
   if (!categories) {
     categories = "tourism.attraction"
   }
-  console.log(categories)
+  const key = `city-nearby:${place_id}-${categories}`
+  const cached = await redis.get(key)
+  if (cached) {
+    return cached
+  }
+
   const response = await fetch(
     `https://api.geoapify.com/v2/places?categories=${categories}&filter=place:${place_id}&limit=20&apiKey=${geoApiFiKey}`,
   )
 
   const result = await response.json()
   if (!result) return []
-  return result.features.map(function (f: any) {
+  const ret = result.features.map(function (f: any) {
     return f.properties
   })
+
+  await redis.set(key, ret)
+  return ret
 }

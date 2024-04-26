@@ -10,8 +10,11 @@ import { useEffect, useState } from "react"
 import { Selection } from "./selection"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
 
 const categorySet = new Set<string>()
+const min_radius = 1
+const max_radious = 50
 
 export default function SearchNearbyAttractions() {
   const [userLocation, setUserLocation] = useAtom(userLocationAtom)
@@ -20,6 +23,8 @@ export default function SearchNearbyAttractions() {
   const [selectedLocationIndex, setSelectedLocationIndex] = useState(0)
   const [selectedCategories, setSelectedCategories] = useState("")
   const [cityLoading, setCityLoading] = useState(false)
+  const [isChecked, setIsChecked] = useState(false)
+  const [radius, setRadius] = useState(min_radius)
   const router = useRouter()
 
   useEffect(() => {
@@ -44,8 +49,14 @@ export default function SearchNearbyAttractions() {
   }
 
   const onSearch = async () => {
-    const { place_id } = locations[selectedLocationIndex]
+    const { lat, lon, place_id } = locations[selectedLocationIndex]
     const cats = selectedCategories.replaceAll(" ", "").toLowerCase()
+    if (isChecked === true) {
+      router.push(
+        `/places/nearby?categories=${cats}&lat=${lat}&lon=${lon}&radius=${radius}`,
+      )
+      return
+    }
     router.push(`/places/${place_id}?categories=${cats}`)
   }
 
@@ -75,6 +86,34 @@ export default function SearchNearbyAttractions() {
         >
           Use My Location
         </Button>
+      </div>
+      <div className="flex items-center space-x-2">
+        <Checkbox
+          id="terms"
+          checked={isChecked}
+          onClick={() => setIsChecked((checked) => !checked)}
+        />
+        <label
+          htmlFor="terms"
+          className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Set Redius (km)
+        </label>
+        {isChecked && (
+          <div className="ml-auto">
+            <Input
+              type="number"
+              min={min_radius}
+              max={max_radious}
+              value={radius}
+              onChange={(e) => {
+                const value = Number(e.currentTarget.value)
+                setRadius(value)
+              }}
+              className="h-8"
+            />
+          </div>
+        )}
       </div>
       {cityLoading && (
         <p className="mx-auto animate-pulse">Loading Result...</p>
@@ -157,4 +196,4 @@ const categories = [
   "Beach",
   "Sport",
   "Production",
-]
+].toSorted()
