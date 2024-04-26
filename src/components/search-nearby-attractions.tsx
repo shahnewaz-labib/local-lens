@@ -9,13 +9,14 @@ import { userLocationAtom } from "@/stores/user-location"
 import { Button } from "./ui/button"
 import { getLocations } from "@/actions/location-auto-complete"
 import { Selection } from "./selection"
+import { searchNearbyWithinCity } from "@/actions/geoapify"
 
 export default function SearchNearbyAttractions() {
   const [userLocation, setUserLocation] = useAtom(userLocationAtom)
   const [city, setCity] = useState("")
   const [locations, setLocations] = useState<any>()
-  const [selectedLocationIndex, setSelectedLocationIndex] = useState(-1)
-  const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedLocationIndex, setSelectedLocationIndex] = useState(0)
+  const [selectedCategories, setSelectedCategories] = useState("")
 
   useEffect(() => {
     getlatlon()
@@ -31,8 +32,19 @@ export default function SearchNearbyAttractions() {
     e.preventDefault()
     const locations = await getLocations(city)
     setSelectedLocationIndex(-1)
-    setSelectedCategory("")
+    setSelectedCategories("")
     setLocations(locations)
+  }
+
+  const onSearch = async () => {
+    const { lon, lat, place_id } = locations[selectedLocationIndex]
+    const places = await searchNearbyWithinCity(
+      lat,
+      lon,
+      place_id,
+      selectedCategories.replaceAll(" ", "").toLowerCase(),
+    )
+    console.log(places)
   }
 
   return (
@@ -68,6 +80,7 @@ export default function SearchNearbyAttractions() {
             {locations.map((city: any, ind: number) => {
               return (
                 <button
+                  key={ind}
                   className="flex w-min bg-primary-foreground px-2"
                   onClick={() => {
                     setSelectedLocationIndex(ind)
@@ -87,16 +100,30 @@ export default function SearchNearbyAttractions() {
           <p>Selected Location: {locations[selectedLocationIndex].formatted}</p>
         </div>
       )}
-      {locations && selectedLocationIndex >= 0 && (
-        <div className="flex gap-2">
-          <Selection
-            items={categories}
-            placeholder="Select category"
-            selectedItem={selectedCategory}
-            setSelectedItem={setSelectedCategory}
-          />
-          {selectedCategory && <Button>Search</Button>}
+      {selectedLocationIndex >= 0 && (
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2">
+            <p>Add categories:</p>
+            <Selection
+              items={categories}
+              placeholder="Category listing"
+              onSelectedChange={(value: string) => {
+                if (!value) return
+                if (selectedCategories.length === 0) {
+                  setSelectedCategories(value)
+                  return
+                }
+                setSelectedCategories(`${selectedCategories}, ${value}`)
+              }}
+            />
+          </div>
+          <p>Selected Categories: {selectedCategories}</p>
         </div>
+      )}
+      {selectedCategories && (
+        <Button className="w-[500px]" onClick={onSearch}>
+          Search
+        </Button>
       )}
     </div>
   )
@@ -105,6 +132,7 @@ export default function SearchNearbyAttractions() {
 const categories = [
   "Healthcare",
   "Accommodation",
+  "Education",
   "Activity",
   "Airport",
   "Commercial",

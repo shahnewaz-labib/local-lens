@@ -12,16 +12,16 @@ import {
 export function Selection({
   items,
   placeholder,
-  selectedItem,
-  setSelectedItem,
+  onSelectedChange,
 }: {
   items: string[]
   placeholder: string
-  selectedItem: string
-  setSelectedItem: React.Dispatch<React.SetStateAction<string>>
+  onSelectedChange: (value) => void
 }) {
+  const [selectedItem, setSelectedItem] = React.useState("")
   const handleSelectChange = (value: string) => {
     setSelectedItem(value)
+    onSelectedChange(value)
   }
 
   return (
