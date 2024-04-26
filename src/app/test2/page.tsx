@@ -1,5 +1,6 @@
 import { getIsochrone, searchNearbyIsochrone } from "@/actions/tour-plan"
 import { searchNearby } from "@/actions/geoapify"
+import { getWeather } from "@/actions/weather"
 
 async function getNextLocation(
   lat: number,
@@ -31,8 +32,8 @@ export default async function Test() {
   // )
 
   // parameters
-  const lat = 40.708469361278354
-  const lon = -73.98112090155426
+  const lat = 23.8
+  const lon = 90.65
   const nature = "family"
   const mode = "drive"
 
@@ -42,12 +43,14 @@ export default async function Test() {
       ? "accommodation.hotel,accommodation.hut,accommodation.chalet,accommodation.apartment,accommodation.guest_house"
       : "accommodation.hotel,accommodation.motel"
   const range = nature === "family" ? 1800 : 3600
+
   const accommodation_location = await searchNearby(
     lat,
     lon,
     accommodation,
     100,
   )
+
   const random_accommodation =
     accommodation_location[
       Math.floor(Math.random() * accommodation_location.length)
@@ -83,6 +86,28 @@ export default async function Test() {
     range,
     "catering",
   )
+
+  const weather = await getWeather(lat, lon)
+  const weatherForecast = {
+    today: {
+      maxTemp: weather.forecast.forecastday[0].day.maxtemp_c,
+      minTemp: weather.forecast.forecastday[0].day.mintemp_c,
+      chanceOfRain: weather.forecast.forecastday[0].day.daily_chance_of_rain,
+      aqi: weather.forecast.forecastday[0].hour[0].air_quality.pm2_5 * 10,
+    },
+    tomorrow: {
+      maxTemp: weather.forecast.forecastday[1].day.maxtemp_c,
+      minTemp: weather.forecast.forecastday[1].day.mintemp_c,
+      chanceOfRain: weather.forecast.forecastday[1].day.daily_chance_of_rain,
+      aqi: weather.forecast.forecastday[1].hour[0].air_quality.pm2_5 * 10,
+    },
+    dayAfterTomorrow: {
+      maxTemp: weather.forecast.forecastday[2].day.maxtemp_c,
+      minTemp: weather.forecast.forecastday[2].day.mintemp_c,
+      chanceOfRain: weather.forecast.forecastday[2].day.daily_chance_of_rain,
+      aqi: weather.forecast.forecastday[2].hour[0].air_quality.pm2_5 * 10,
+    },
+  }
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
