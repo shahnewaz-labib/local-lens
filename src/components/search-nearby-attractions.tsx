@@ -134,6 +134,7 @@ export default function SearchNearbyAttractions() {
                   className="flex w-min bg-primary-foreground px-2"
                   onClick={() => {
                     setSelectedLocationIndex(ind)
+                    setCity(city.formatted)
                   }}
                 >
                   <p className="w-[300px] px-4 py-2 md:w-[600px]">
@@ -145,11 +146,11 @@ export default function SearchNearbyAttractions() {
           </div>
         </div>
       )}
+
       {locations && selectedLocationIndex >= 0 && (
         <div className="flex flex-col">
-          <p>Selected Location: {locations[selectedLocationIndex].formatted}</p>
-          <div className="flex items-center gap-2">
-            <p>Add categories:</p>
+          <div className="flex items-center gap-4 mt-4">
+            <p>Select categories:</p>
             <Selection
               items={categories.filter((cat) => !categorySet.has(cat))}
               placeholder="Category listing"
@@ -167,8 +168,8 @@ export default function SearchNearbyAttractions() {
           </div>
 
           {selectedCategories && (
-            <div>
-              <p>Selected Categories: {selectedCategories}</p>
+            <div className="mt-4">
+              <p>Selected Categories: <code>{selectedCategories}</code></p>
               <Button onClick={onSearch} className="mt-4 w-full">
                 Search Places
               </Button>
