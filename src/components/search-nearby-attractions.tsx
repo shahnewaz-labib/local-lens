@@ -11,6 +11,8 @@ import { getLocations } from "@/actions/location-auto-complete"
 import { Selection } from "./selection"
 import { searchNearbyWithinCity } from "@/actions/geoapify"
 
+const categorySet = new Set<string>()
+
 export default function SearchNearbyAttractions() {
   const [userLocation, setUserLocation] = useAtom(userLocationAtom)
   const [city, setCity] = useState("")
@@ -34,6 +36,7 @@ export default function SearchNearbyAttractions() {
     setSelectedLocationIndex(-1)
     setSelectedCategories("")
     setLocations(locations)
+    categorySet.clear()
   }
 
   const onSearch = async () => {
@@ -105,10 +108,12 @@ export default function SearchNearbyAttractions() {
           <div className="flex items-center gap-2">
             <p>Add categories:</p>
             <Selection
-              items={categories}
+              items={categories.filter((cat) => !categorySet.has(cat))}
               placeholder="Category listing"
               onSelectedChange={(value: string) => {
                 if (!value) return
+                categorySet.add(value)
+                console.log(categorySet)
                 if (selectedCategories.length === 0) {
                   setSelectedCategories(value)
                   return

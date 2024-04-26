@@ -20,7 +20,6 @@ export function Selection({
 }) {
   const [selectedItem, setSelectedItem] = React.useState("")
   const handleSelectChange = (value: string) => {
-    setSelectedItem(value)
     onSelectedChange(value)
   }
 
