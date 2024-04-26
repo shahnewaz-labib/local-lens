@@ -10,6 +10,8 @@ import places from "@/lib/places.json"
 import { useEffect, useState } from "react"
 import { searchNearby } from "@/actions/geoapify"
 import Loading from "@/components/loading"
+import { useAtomValue } from "jotai"
+import { selectedPlaceIdAtom } from "@/stores/selected-location"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -17,6 +19,7 @@ export default function Page() {
   const lon = searchParams.get("lon")
   const categories = searchParams.get("categories")
   let radius = searchParams.get("radius")
+  const selectedPlaceId = useAtomValue(selectedPlaceIdAtom)
   const [places, setPlaces] = useState<any>()
   const [isLoading, setIsLoading] = useState(true)
   if (!radius) {
@@ -28,12 +31,16 @@ export default function Page() {
   }
 
   useEffect(() => {
-    searchNearby(Number(lat), Number(lon), categories, Number(radius)).then(
-      (data: any) => {
-        setIsLoading(false)
-        setPlaces(data)
-      },
-    )
+    searchNearby(
+      selectedPlaceId,
+      Number(lat),
+      Number(lon),
+      categories,
+      Number(radius),
+    ).then((data: any) => {
+      setIsLoading(false)
+      setPlaces(data)
+    })
   }, [])
 
   return (
