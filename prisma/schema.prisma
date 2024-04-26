@@ -11,6 +11,7 @@ model Place {
   id        Int    @id @default(autoincrement())
   place_id  String
   formatted String
+  category  String
   postcode  Int
   street    String
   lat       Float

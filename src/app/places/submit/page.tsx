@@ -15,10 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useToast } from "@/components/ui/use-toast"
 import { Search } from "lucide-react"
 import { useState } from "react"
 import { FaSearch } from "react-icons/fa"
-import { submitPlace } from "@/actions/submit-place"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
   formatted: z.string().min(2, {
@@ -36,6 +37,7 @@ const formSchema = z.object({
     .number()
     .max(180, { message: "longitude must be between 180 and -180" })
     .min(-180, { message: "longitude must be between 180 and -180" }),
+  category: z.string().min(3, "Category must be at least 3 characters"),
 })
 
 export default function Page() {
@@ -43,6 +45,8 @@ export default function Page() {
   const [locations, setLocations] = useState<any>()
   const [selectedLocationIndex, setSelectedLocationIndex] = useState(-1)
   const [cityLoading, setCityLoading] = useState(false)
+  const { toast } = useToast()
+  const router = useRouter()
 
   const onCitySubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -57,9 +61,8 @@ export default function Page() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       formatted: "",
-      /* postcode: 1700, */
-      /* lat: 23.9486206, */
-      /* lon: 90.3798759, */
+      street: "",
+      category: "",
     },
   })
 
@@ -73,6 +76,23 @@ export default function Page() {
       method: "POST",
       body: JSON.stringify(placeInfo),
     })
+      .then((data) => data.json())
+      .then((data) => {
+        if (data.success === false) {
+          toast({
+            description: "Failed to added place, " + data.message,
+            variant: "destructive",
+          })
+        }
+        toast({ description: "Successfully added place" })
+        router.push("/")
+      })
+      .catch(() => {
+        toast({
+          description: "Failed to add place",
+          variant: "destructive",
+        })
+      })
   }
 
   return (
@@ -204,6 +224,22 @@ export default function Page() {
                 <FormItem>
                   <div className="flex items-center gap-2">
                     <FormLabel>Longitude</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center gap-2">
+                    <FormLabel>Category</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>

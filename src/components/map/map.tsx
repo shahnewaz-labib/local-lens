@@ -24,7 +24,7 @@ import {
 import { IoLocationSharp } from "react-icons/io5"
 
 export function MapPinIcon({ place }: { place: any }) {
-  if (!place.categories) return <IoLocationSharp size={30} />
+  if (!place.categories) place.categories = [place.category || "tourism"]
   const faFontSize = 30
   if (place.categories.includes("airport")) {
     return <FaPlaneDeparture size={faFontSize} className="text-blue-500" />
@@ -106,8 +106,7 @@ export default function MapComponent({
             className="text-background"
           >
             <p className="capitalize">
-              {selectedMarker?.datasource?.raw?.amenity ||
-                selectedMarker.category}
+              {selectedMarker?.datasource?.raw?.amenity}
             </p>
             <p className="text-green-500">
               {selectedMarker.name || selectedMarker.formatted}
