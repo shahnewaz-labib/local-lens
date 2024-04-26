@@ -8,7 +8,8 @@ datasource db {
 }
 
 model Place {
-  place_id  String @id
+  id        Int    @id @default(autoincrement())
+  place_id  String
   formatted String
   postcode  Int
   street    String

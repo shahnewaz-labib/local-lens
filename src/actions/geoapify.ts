@@ -1,6 +1,7 @@
 "use server"
 
 import { redis } from "@/config/redis"
+import prisma from "@/lib/db"
 
 const geoApiFiKey = process.env.GEOAPIFY_API_KEY!
 
@@ -41,10 +42,10 @@ export async function searchNearbyWithinCity(
     categories = "tourism.attraction"
   }
   const key = `city-nearby:${place_id}-${categories}`
-  const cached = await redis.get(key)
-  if (cached) {
-    return cached
-  }
+  /* const cached = await redis.get(key) */
+  /* if (cached) { */
+  /*   return cached */
+  /* } */
 
   const response = await fetch(
     `https://api.geoapify.com/v2/places?categories=${categories}&filter=place:${place_id}&limit=20&apiKey=${geoApiFiKey}`,
@@ -52,9 +53,20 @@ export async function searchNearbyWithinCity(
   if (!response.ok) return []
   const result = await response.json()
   if (!result) return []
-  const ret = result.features.map(function (f: any) {
+  let ret = result.features.map(function (f: any) {
     return f.properties
   })
+
+  const placesFromCommunityData = await prisma.place.findMany({
+    where: {
+      place_id,
+    },
+  })
+  console.log(`${place_id}, ${JSON.stringify(placesFromCommunityData)}`)
+
+  if (placesFromCommunityData) {
+    ret = ret.concat(placesFromCommunityData)
+  }
 
   await redis.set(key, ret)
   return ret

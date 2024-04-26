@@ -8,18 +8,27 @@ export default function Places({ places }: { places: any }) {
       <div className="m-2">
         {places &&
           places.map((place: any, index: number) => {
-            if (!place.name) return <div key={index}></div>
             return (
-              <Card className="m-4 hover:scale-105 transition-transform duration-200" key={index}>
+              <Card
+                className="m-4 transition-transform duration-200 hover:scale-105"
+                key={index}
+              >
                 <CardHeader>
-                  <h2 className="font-bold">{place.name}</h2>
+                  <h2 className="font-bold">{place.name || place.formatted}</h2>
                 </CardHeader>
-                <CardContent>TODO: Some Description</CardContent>
+                <CardContent>
+                  <p>Street: {place.street}</p>
+                  <p>Postcode: {place.postcode}</p>
+                </CardContent>
                 <CardFooter className="text-sm text-gray-500">
-                  {place.address_line2}
+                  {place.address_line2 || ""}
                 </CardFooter>
-                <CardFooter className="italic text-sm text-gray-500">
-                  Category: {place.categories[0]}
+                <CardFooter className="text-sm italic text-gray-500">
+                  Category:{" "}
+                  {(place.categories &&
+                    place.categories.length > 0 &&
+                    place.categories[0]) ||
+                    "community added"}
                 </CardFooter>
               </Card>
             )

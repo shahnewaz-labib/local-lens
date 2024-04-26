@@ -1,5 +1,6 @@
 -- CreateTable
 CREATE TABLE "Place" (
+    "id" SERIAL NOT NULL,
     "place_id" TEXT NOT NULL,
     "formatted" TEXT NOT NULL,
     "postcode" INTEGER NOT NULL,
@@ -7,5 +8,5 @@ CREATE TABLE "Place" (
     "lat" DOUBLE PRECISION NOT NULL,
     "lon" DOUBLE PRECISION NOT NULL,
 
-    CONSTRAINT "Place_pkey" PRIMARY KEY ("place_id")
+    CONSTRAINT "Place_pkey" PRIMARY KEY ("id")
 );
