@@ -67,6 +67,11 @@ export default function SearchNearbyAttractions() {
     setCityLoading(false)
   }
 
+  const onTourPlan = () => {
+    const { lat, lon } = locations[selectedLocationIndex]
+    router.push(`/tour-plan?lat=${lat}&lon=${lon}`)
+  }
+
   const onSearch = async (inMap: boolean) => {
     const { lat, lon } = locations[selectedLocationIndex]
     setLocationForWeather({ lat, lon })
@@ -216,6 +221,7 @@ export default function SearchNearbyAttractions() {
                 <Button onClick={() => onSearch(true)} className="w-1/2">
                   See In Map
                 </Button>
+                <Button onClick={onTourPlan}>Create Tour Plan</Button>
               </div>
             </div>
           )}

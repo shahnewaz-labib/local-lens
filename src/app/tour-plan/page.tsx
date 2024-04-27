@@ -18,32 +18,35 @@ import { cohereCall, getLocationsForOneDay } from "@/actions/tour-plan"
 import { searchNearby } from "@/actions/geoapify"
 import { getWeather } from "@/actions/weather"
 import { useState } from "react"
+import { useAtomValue } from "jotai"
+import { selectedPlaceIdAtom } from "@/stores/selected-location"
+import { useSearchParams } from "next/navigation"
+import clsx from "clsx"
 
 const formSchema = z.object({
-  placeId: z.string().min(2, {
-    message: "name must be at least 2 characters.",
-  }),
   tourNature: z.string().min(2, {
     message: "name must be at least 2 characters.",
   }),
   travelMode: z.string().min(2, {
     message: "name must be at least 2 characters.",
   }),
-  lat: z.coerce
-    .number()
-    .max(90, { message: "latitude must be between 90 and -90" })
-    .min(-90, { message: "latitude must be between 90 and -90" }),
-  lon: z.coerce
-    .number()
-    .max(180, { message: "longitude must be between 180 and -180" })
-    .min(-180, { message: "longitude must be between 180 and -180" }),
 })
 
 export default function Page() {
+  const selectedPlaceId = useAtomValue(selectedPlaceIdAtom)
+
+  const searchParams = useSearchParams()
+  const lat = searchParams.get("lat")
+  const lon = searchParams.get("lon")
+  const [isLoading, setIsLoading] = useState(false)
+
+  if (!lat || !lon) {
+    return <p>lat, lon not provided in query param</p>
+  }
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      placeId: "",
       tourNature: "",
       travelMode: "",
     },
@@ -52,6 +55,8 @@ export default function Page() {
   const [planMessage, setPlanMessage] = useState<string>("")
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(`place_id:${selectedPlaceId}, lat:${lat}, lon:${lon}`)
+    setIsLoading(true)
     const accommodation =
       values.tourNature === "family"
         ? "accommodation.hotel,accommodation.hut,accommodation.chalet,accommodation.apartment,accommodation.guest_house"
@@ -59,9 +64,9 @@ export default function Page() {
 
     // get accommodation
     const accommodation_location = await searchNearby(
-      values.placeId,
-      values.lat,
-      values.lon,
+      selectedPlaceId,
+      lat,
+      lon,
       accommodation,
       100,
     )
@@ -148,102 +153,60 @@ export default function Page() {
     cohereCall(results)
       .then((data) => {
         setPlanMessage(data)
+        setIsLoading(false)
       })
       .catch((error) => {
+        setIsLoading(false)
         console.error(error)
       })
   }
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 p-2">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="placeId"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center gap-2">
-                  <FormLabel>Place ID</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      <div className={isLoading ? "hidden" : "block"}>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="tourNature"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center gap-2">
+                    <FormLabel>Tour Nature</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="tourNature"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center gap-2">
-                  <FormLabel>Tour Nature</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="travelMode"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center gap-2">
+                    <FormLabel>Travel Mode</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="travelMode"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center gap-2">
-                  <FormLabel>Travel Mode</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="lat"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center gap-2">
-                  <FormLabel>Latitude</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="lon"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center gap-2">
-                  <FormLabel>Longitude</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Button type="submit" className="w-full">
-            Submit
-          </Button>
-        </form>
-      </Form>
-
+            <Button type="submit" className="w-full">
+              Submit
+            </Button>
+          </form>
+        </Form>
+      </div>
+      {isLoading === true && (
+        <p className="animate-pulse">Creating a plan for you....</p>
+      )}
       <div className="text-center">{planMessage}</div>
     </div>
   )
