@@ -43,7 +43,7 @@ export default function Weather() {
           </div>
           <div>
             <CiDroplet size={30} className="mb-2 ml-6" />{" "}
-            {weather.current.humidity}% humidity
+            {weather.current.humidity}% Humidity
           </div>
           <div>
             <FaRadiation size={30} className="mb-2 ml-2" />{" "}
