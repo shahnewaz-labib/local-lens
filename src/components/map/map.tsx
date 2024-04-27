@@ -23,6 +23,8 @@ import {
 } from "react-icons/fa"
 import { IoLocationSharp } from "react-icons/io5"
 import { Combobox } from "../combobox"
+import { Button } from "../ui/button"
+import { useRouter } from "next/navigation"
 
 export function MapPinIcon({ place }: { place: any }) {
   if (!place.categories) place.categories = [place.category || "tourism"]
@@ -55,6 +57,7 @@ export default function MapComponent({
   lon: string
   places: any
 }) {
+  const router = useRouter()
   const [selectedMarker, setSelectedMarker] = useState<any>(null)
   const mapRef = useRef(null)
   const zoomToSelectedLoc = (e: any, location: any, index: number) => {
@@ -78,9 +81,18 @@ export default function MapComponent({
 
   return (
     <main className={styles.mainStyle}>
-      <div className="flex justify-center gap-2 py-4">
+      <div className="flex items-center justify-center gap-2 py-4">
         <p>Search Places</p>
         <Combobox suggestions={places} onSelectedChange={onSearchSelect} />
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            router.back()
+          }}
+        >
+          Change City
+        </Button>
       </div>
       <Map
         ref={mapRef}
