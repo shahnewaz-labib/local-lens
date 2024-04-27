@@ -1,9 +1,11 @@
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
+import Weather from "./weather"
 
 export default function Places({ places }: { places: any }) {
   return (
     <div className="m-2 w-1/2">
-      <p className="m-2 ml-6">List of places:</p>
+      <Weather />
+      <p className="m-2 ml-6">Here are some of the places we found:</p>
       <div className="m-2">
         {places &&
           places.map((place: any, index: number) => {

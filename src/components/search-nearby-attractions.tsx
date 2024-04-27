@@ -15,7 +15,7 @@ import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { categories } from "@/lib/categories"
 import { selectedPlaceIdAtom } from "@/stores/selected-location"
-import { locationsAtom } from "@/stores/searched-locations"
+import { locationForWeatherAtom, locationsAtom } from "@/stores/searched-locations"
 import { selectedCategoriesAtom } from "@/stores/selected-categories"
 
 const categorySet = new Set<string>(categories.slice(0, 3))
@@ -30,6 +30,7 @@ export default function SearchNearbyAttractions() {
   const [userLocation, setUserLocation] = useAtom(userLocationAtom)
   const [city, setCity] = useState("")
   const [locations, setLocations] = useAtom(locationsAtom)
+  const [locationForWeather, setLocationForWeather] = useAtom(locationForWeatherAtom)
   const [selectedLocationIndex, setSelectedLocationIndex] = useState(-1)
   const [selectedCategories, setSelectedCategories] = useAtom(
     selectedCategoriesAtom,
@@ -63,6 +64,7 @@ export default function SearchNearbyAttractions() {
 
   const onSearch = async (inMap: boolean) => {
     const { lat, lon } = locations[selectedLocationIndex]
+    setLocationForWeather({ lat, lon })
     const cats = selectedCategories.replaceAll(" ", "").toLowerCase()
     if (inMap === true) {
       let url = `/places/map?categories=${cats}&lat=${lat}&lon=${lon}`
