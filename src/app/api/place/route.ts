@@ -12,7 +12,7 @@ const placeSchema = z.object({
   lon: z.number(),
 })
 
-export async function submitPlace(placeInfo) {
+async function submitPlace(placeInfo) {
   const place = placeSchema.safeParse(placeInfo)
   if (place.error) {
     return {
@@ -32,7 +32,7 @@ export async function submitPlace(placeInfo) {
       message: "lat,lon already added",
     }
   }
-  const data = await prisma.place.create({
+  await prisma.place.create({
     data: place.data,
   })
   return {

@@ -22,8 +22,8 @@ export default function Page() {
   const [places, setPlaces] = useState<any>()
   const [isLoading, setIsLoading] = useState(true)
 
-  if (!categories) {
-    return <p>categories not provided in search param</p>
+  if (!categories || !lat || !lon) {
+    return <p>lat,lon or categories not provided in search param</p>
   }
 
   useEffect(() => {
