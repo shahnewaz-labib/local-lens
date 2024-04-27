@@ -17,10 +17,10 @@ export async function searchNearby(
   }
   radius = Math.round(radius * 1000)
   const key = `nearby:${lat}-${lon}-${categories}-${radius}`
-  /* const cached = await redis.get(key) */
-  /* if (cached) { */
-  /*   return cached */
-  /* } */
+  const cached = await redis.get(key)
+  if (cached) {
+    return cached
+  }
   const url = `https://api.geoapify.com/v2/places?categories=${categories}&filter=circle:${lon},${lat},${radius}&limit=20&apiKey=${geoApiFiKey}`
   const response = await fetch(url)
   if (!response.ok) return []
