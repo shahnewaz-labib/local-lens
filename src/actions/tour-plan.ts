@@ -1,7 +1,6 @@
-import { redis } from "@/config/redis"
+"use server"
+// import { redis } from "@/config/redis"
 import { CohereClient } from "cohere-ai"
-
-const geoApiFiKey = process.env.GEOAPIFY_API_KEY!
 
 const cohere = new CohereClient({
   token: process.env.CO_API_KEY,
@@ -27,17 +26,19 @@ export async function cohereCall(results) {
 export async function getIsochrone(
   lat: number,
   lon: number,
-  type: "time" | "distance",
-  mode: "drive" | "bus" | "motorcycle" | "bicycle" | "walk" | "transit",
+  type: string,
+  mode: string,
   range: number,
 ) {
   const key = `isochrone:${lat}-${lon}-${type}-${mode}-${range}`
-  const cached = await redis.get(key)
-  if (cached) {
-    return cached
-  }
+  // const cached = await redis.get(key)
+  // if (cached) {
+  //   return cached
+  // }
 
-  const url = `https://api.geoapify.com/v1/isoline?lat=${lat}&lon=${lon}&type=${type}&mode=${mode}&range=${range}&traffic=approximated&max_speed=60&apiKey=${geoApiFiKey}`
+  const url = `https://api.geoapify.com/v1/isoline?lat=${lat}&lon=${lon}&type=${type}&mode=${mode}&range=${range}&traffic=approximated&max_speed=60&apiKey=${process.env.GEOAPIFY_API_KEY}`
+  console.log(url)
+
   const response = await fetch(url)
   if (!response.ok) return []
   const result = await response.json()
@@ -46,7 +47,7 @@ export async function getIsochrone(
   const ret = result.features.map(function (f: any) {
     return f.properties
   })
-  await redis.set(key, ret)
+  // await redis.set(key, ret)
   return ret
 }
 
@@ -59,12 +60,12 @@ export async function searchNearbyIsochrone(
   }
 
   const key = `nearbyIso:${isochrone_id}-${categories}`
-  const cached = await redis.get(key)
-  if (cached) {
-    return cached
-  }
+  // const cached = await redis.get(key)
+  // if (cached) {
+  //   return cached
+  // }
 
-  const url = `https://api.geoapify.com/v2/places?categories=${categories}&filter=geometry:${isochrone_id}&limit=20&apiKey=${geoApiFiKey}`
+  const url = `https://api.geoapify.com/v2/places?categories=${categories}&filter=geometry:${isochrone_id}&limit=20&apiKey=${process.env.GEOAPIFY_API_KEY}`
   const response = await fetch(url)
   if (!response.ok) return []
   const result = await response.json()
@@ -77,19 +78,20 @@ export async function searchNearbyIsochrone(
   const ret = result.features.map(function (f: any) {
     return f.properties
   })
-  await redis.set(key, ret)
+  // await redis.set(key, ret)
   return ret
 }
 
 export async function getNextLocation(
   lat: number,
   lon: number,
-  mode: "drive" | "bus" | "motorcycle" | "bicycle" | "walk" | "transit",
+  mode: string,
   range: number,
   categories?: string,
   visited?: Set<string>,
 ) {
   const results = await getIsochrone(lat, lon, "time", mode, range)
+
   const isochrone_id = results[0].id
   const nearby = await searchNearbyIsochrone(isochrone_id, categories)
 
@@ -109,7 +111,7 @@ export async function getLocationsForOneDay(
   lat: number,
   lon: number,
   nature: string,
-  mode: "drive" | "bus" | "motorcycle" | "bicycle" | "walk" | "transit",
+  mode: string,
   visited: Set<string>,
 ) {
   // parameters
