@@ -18,9 +18,6 @@ import { cohereCall, getLocationsForOneDay } from "@/actions/tour-plan"
 import { searchNearby } from "@/actions/geoapify"
 import { getWeather } from "@/actions/weather"
 import { useState } from "react"
-import { useAtomValue } from "jotai"
-import { selectedPlaceIdAtom } from "@/stores/selected-location"
-import { useSearchParams } from "next/navigation"
 import clsx from "clsx"
 
 const formSchema = z.object({
@@ -163,24 +160,39 @@ export default function Page() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 p-2">
-      <div className={isLoading ? "hidden" : "block"}>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="tourNature"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex items-center gap-2">
-                    <FormLabel>Tour Nature</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+      <Form {...form} className={clsx({"hidden": planMessage!==""})}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="placeId"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex items-center gap-2">
+                  <FormLabel>Place ID</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="tourNature"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex items-center gap-2">
+                  <FormLabel>Tour Nature</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
             <FormField
               control={form.control}

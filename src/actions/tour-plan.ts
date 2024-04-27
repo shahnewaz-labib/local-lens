@@ -10,7 +10,7 @@ export async function cohereCall(results) {
   const response = await cohere.generate({
     model: "command",
     prompt:
-      "You are a helpful travel planner. Arrange the following locations into a comprehensive tour plan. Mention about weather at each place. Use the format :\n\nHere is a comprehensive tour for your family.\n<h2>Day:</h2>\n<p>tour description of attraction 1</p>\n<p>lunch description of food 1</p>\n<p>tour description of attraction 2</p>\n<p>dinner description of food 2</p>\n\n" +
+      'You are a helpful travel planner. Arrange the following locations into a comprehensive tour plan. Mention about weather at each place. Use the format :\n\n"Here is a comprehensive tour for your family.\nDay #:\ntour description of attraction 1\nlunch description of food 1\ntour description of attraction 2\ndinner description of food 2"\n\n' +
       JSON.stringify(results, null, 2),
     maxTokens: 300,
     temperature: 0.7,
