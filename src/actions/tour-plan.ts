@@ -1,6 +1,28 @@
 import { redis } from "@/config/redis"
+import { CohereClient } from "cohere-ai"
 
 const geoApiFiKey = process.env.GEOAPIFY_API_KEY!
+
+const cohere = new CohereClient({
+  token: process.env.CO_API_KEY,
+})
+
+export async function cohereCall(results) {
+  const response = await cohere.generate({
+    model: "command",
+    prompt:
+      "You are a helpful travel planner. Arrange the following locations into a comprehensive tour plan. Mention about weather at each place. Use the format :\n\nHere is a comprehensive tour for your family.\n<h2>Day:</h2>\n<p>tour description of attraction 1</p>\n<p>lunch description of food 1</p>\n<p>tour description of attraction 2</p>\n<p>dinner description of food 2</p>\n\n" +
+      JSON.stringify(results, null, 2),
+    maxTokens: 300,
+    temperature: 0.7,
+    k: 0,
+    stopSequences: [],
+    returnLikelihoods: "NONE",
+  })
+  console.log(response.generations[0].text)
+
+  return response.generations[0].text
+}
 
 export async function getIsochrone(
   lat: number,
@@ -68,7 +90,6 @@ export async function getNextLocation(
   visited?: Set<string>,
 ) {
   const results = await getIsochrone(lat, lon, "time", mode, range)
-
   const isochrone_id = results[0].id
   const nearby = await searchNearbyIsochrone(isochrone_id, categories)
 

@@ -36,6 +36,7 @@
     "@upstash/redis": "^1.30.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cohere-ai": "^7.9.5",
     "jotai": "^2.8.0",
     "lucide-react": "^0.372.0",
     "mapbox-gl": "^3.3.0",

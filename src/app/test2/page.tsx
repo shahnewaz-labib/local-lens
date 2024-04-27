@@ -2,6 +2,8 @@ import { searchNearby } from "@/actions/geoapify"
 import { getWeather } from "@/actions/weather"
 import { getLocationsForOneDay } from "@/actions/tour-plan"
 
+import TourPlan from "@/components/tourplan"
+
 export default async function Test() {
   // parameters
   const place_id =
@@ -100,12 +102,7 @@ export default async function Test() {
       },
     },
   }
-  console.log(JSON.stringify(results, null, 2))
+  // console.log(JSON.stringify(results, null, 2))
 
-  return (
-    <div className="flex flex-col items-center justify-center p-4">
-      <h1 className="text-2xl font-bold">Tour Plan</h1>
-      {JSON.stringify(results, null, 2)}
-    </div>
-  )
+  return <TourPlan plan={results} />
 }
