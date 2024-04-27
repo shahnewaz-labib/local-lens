@@ -18,7 +18,7 @@ export default function Weather(city: any) {
   }, [])
 
   if (!weather || !weather.current || !weather.location) {
-    return <div className="m-6 animate-pulse">Loading...</div>
+    return <div className="m-6 animate-pulse">Gathering Weather Data...</div>
   }
 
   return (
