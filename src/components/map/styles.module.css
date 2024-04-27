@@ -1,6 +1,10 @@
 .mainStyle {
   max-width: 100%;
-  height: 100vh;
+  height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
 }
 .mapStyle {
   width: 100%;

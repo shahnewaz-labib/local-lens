@@ -22,6 +22,7 @@ import {
   FaUtensils,
 } from "react-icons/fa"
 import { IoLocationSharp } from "react-icons/io5"
+import { Combobox } from "../combobox"
 
 export function MapPinIcon({ place }: { place: any }) {
   if (!place.categories) place.categories = [place.category || "tourism"]
@@ -64,17 +65,33 @@ export default function MapComponent({
     mapRef.current.flyTo({ center: [location.lon, location.lat], zoom: 15 })
   }
 
+  const onSearchSelect = (value: string) => {
+    const index = places.findIndex((item) => item.formatted === value)
+    if (!mapRef?.current || index === -1) return
+    setSelectedMarker(places[index])
+    //@ts-ignore
+    mapRef.current.flyTo({
+      center: [places[index].lon, places[index].lat],
+      zoom: 15,
+    })
+  }
+
   return (
     <main className={styles.mainStyle}>
+      <div className="flex justify-center gap-2 py-4">
+        <p>Search Places</p>
+        <Combobox suggestions={places} onSelectedChange={onSearchSelect} />
+      </div>
       <Map
         ref={mapRef}
         mapboxAccessToken={MAPBOX_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v12"
         cursor="default"
+        style={{ width: "95vw" }}
         initialViewState={{
           latitude: Number(lat),
           longitude: Number(lon),
-          zoom: 10,
+          zoom: 14,
         }}
         maxZoom={20}
         minZoom={3}
