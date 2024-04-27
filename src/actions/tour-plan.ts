@@ -11,9 +11,9 @@ export async function getIsochrone(
 ) {
   const key = `isochrone:${lat}-${lon}-${type}-${mode}-${range}`
   const cached = await redis.get(key)
-  // if (cached) {
-  //   return cached
-  // }
+  if (cached) {
+    return cached
+  }
 
   const url = `https://api.geoapify.com/v1/isoline?lat=${lat}&lon=${lon}&type=${type}&mode=${mode}&range=${range}&traffic=approximated&max_speed=60&apiKey=${geoApiFiKey}`
   const response = await fetch(url)
@@ -38,13 +38,13 @@ export async function searchNearbyIsochrone(
 
   const key = `nearbyIso:${isochrone_id}-${categories}`
   const cached = await redis.get(key)
-  // if (cached) {
-  //   return cached
-  // }
+  if (cached) {
+    return cached
+  }
 
   const url = `https://api.geoapify.com/v2/places?categories=${categories}&filter=geometry:${isochrone_id}&limit=20&apiKey=${geoApiFiKey}`
   const response = await fetch(url)
-  if (response.ok) return []
+  if (!response.ok) return []
   const result = await response.json()
   if (!result) {
     return []
@@ -68,6 +68,7 @@ export async function getNextLocation(
   visited?: Set<string>,
 ) {
   const results = await getIsochrone(lat, lon, "time", mode, range)
+
   const isochrone_id = results[0].id
   const nearby = await searchNearbyIsochrone(isochrone_id, categories)
 

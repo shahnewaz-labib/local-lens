@@ -96,20 +96,12 @@ export default async function Test() {
       },
     },
   }
+  console.log(JSON.stringify(results, null, 2))
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
       <h1 className="text-2xl font-bold">Tour Plan</h1>
-      {/* <p className="text-lg">
-        1. Book your stay at {random_accommodation?.name}.
-      </p>
-      <p className="text-lg">2. Visit {attraction1?.name}.</p>
-      <p className="text-lg">3. Have lunch at {food1?.name}.</p>
-      <p className="text-lg">4. Visit {attraction2?.name}.</p>
-      <p className="text-lg">5. Have dinner at {food2?.name}.</p>
-      <p className="text-lg">
-        6. Have a good night sleep at {random_accommodation?.name}. 
-      </p> */}
+      {JSON.stringify(results, null, 2)}
     </div>
   )
 }
