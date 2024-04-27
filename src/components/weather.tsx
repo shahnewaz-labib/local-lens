@@ -1,20 +1,14 @@
-import { getWeather } from "@/actions/weather"
-import { useAtom } from "jotai"
+import { getWeatherByCity } from "@/actions/weather"
 import { useEffect, useState } from "react"
-import { locationForWeatherAtom } from "@/stores/searched-locations"
 import { Card, CardDescription, CardHeader } from "./ui/card"
 import { FaRadiation, FaTemperatureLow } from "react-icons/fa"
 import { CiDroplet } from "react-icons/ci"
 
-export default function Weather() {
-  const [locationForWeather, setLocationForWeather] = useAtom(
-    locationForWeatherAtom,
-  )
-  const { lat, lon } = locationForWeather
+export default function Weather(city: any) {
   const [weather, setWeather] = useState<any>()
 
   useEffect(() => {
-    getWeather(lat, lon)
+    getWeatherByCity(city.city)
       .then((data: any) => {
         setWeather(data)
       })
@@ -23,7 +17,7 @@ export default function Weather() {
       })
   }, [])
 
-  if (!weather) {
+  if (!weather || !weather.current || !weather.location) {
     return <div className="m-6 animate-pulse">Loading...</div>
   }
 
@@ -32,7 +26,7 @@ export default function Weather() {
       <CardHeader>
         Weather in
         <code className="text-lg">
-          {weather.location.name}, {weather.location.country}
+          {city.city}, {weather.location.country}
         </code>
       </CardHeader>
       <CardDescription>

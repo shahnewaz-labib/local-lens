@@ -2,9 +2,10 @@ import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
 import Weather from "./weather"
 
 export default function Places({ places }: { places: any }) {
+  console.log(places[0].state.split(" ")[0])
   return (
     <div className="m-2 w-1/2">
-      <Weather />
+      <Weather city={places[0].state.split(" ")[0]} />
       <p className="m-2 ml-6">Here are some of the places we found:</p>
       <div className="m-2">
         {places &&
