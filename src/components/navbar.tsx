@@ -12,7 +12,7 @@ const links = [
     href: "https://github.com/IUTCS-24-OpenAPI-Hackathon/IUT-AsyncLads",
   },
   {
-    text: "Missing a local attraction?",
+    text: "Add a local attraction",
     href: "/places/submit",
   },
 ]

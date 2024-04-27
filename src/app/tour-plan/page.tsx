@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
+import { searchNearby } from "@/actions/geoapify"
+import { cohereCall, getLocationsForOneDay } from "@/actions/tour-plan"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -14,11 +16,10 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { cohereCall, getLocationsForOneDay } from "@/actions/tour-plan"
-import { searchNearby } from "@/actions/geoapify"
-import { getWeather } from "@/actions/weather"
+import { selectedPlaceIdAtom } from "@/stores/selected-location"
+import { useAtomValue } from "jotai"
+import { useSearchParams } from "next/navigation"
 import { useState } from "react"
-import clsx from "clsx"
 
 const formSchema = z.object({
   tourNature: z.string().min(2, {
@@ -160,39 +161,24 @@ export default function Page() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 p-2">
-      <Form {...form} className={clsx({"hidden": planMessage!==""})}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="placeId"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center gap-2">
-                  <FormLabel>Place ID</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="tourNature"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center gap-2">
-                  <FormLabel>Tour Nature</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      <div className={isLoading || planMessage ? "hidden" : "block"}>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="tourNature"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center gap-2">
+                    <FormLabel>Tour Nature</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <FormField
               control={form.control}
@@ -219,7 +205,7 @@ export default function Page() {
       {isLoading === true && (
         <p className="animate-pulse">Creating a plan for you....</p>
       )}
-      <div className="text-center">{planMessage}</div>
+      <div className="p-8 text-center">{planMessage}</div>
     </div>
   )
 }
