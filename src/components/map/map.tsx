@@ -87,10 +87,11 @@ export default function MapComponent({
         mapboxAccessToken={MAPBOX_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v12"
         cursor="default"
+        style={{ width: "95vw" }}
         initialViewState={{
           latitude: Number(lat),
           longitude: Number(lon),
-          zoom: 10,
+          zoom: 14,
         }}
         maxZoom={20}
         minZoom={3}
