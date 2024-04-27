@@ -4,6 +4,8 @@ import { getLocationsForOneDay } from "@/actions/tour-plan"
 
 export default async function Test() {
   // parameters
+  const place_id =
+    "51fe84b7f8689a564059ce302d3e4fca3740f00102f901bd59d3150000000092030b416d617269204468616b61"
   const lat = 23.8
   const lon = 90.65
   const nature = "family"
@@ -16,11 +18,13 @@ export default async function Test() {
 
   // get accommodation
   const accommodation_location = await searchNearby(
+    place_id,
     lat,
     lon,
     accommodation,
     100,
   )
+
   const random_accommodation =
     accommodation_location[
       Math.floor(Math.random() * accommodation_location.length)
