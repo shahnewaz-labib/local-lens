@@ -2,16 +2,9 @@
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!
 
-import { MapPin } from "lucide-react"
 import "mapbox-gl/dist/mapbox-gl.css"
+import { useRouter } from "next/navigation"
 import { useRef, useState } from "react"
-import Map, {
-  GeolocateControl,
-  Marker,
-  NavigationControl,
-  Popup,
-} from "react-map-gl"
-import styles from "./styles.module.css"
 import {
   FaDumbbell,
   FaFutbol,
@@ -22,9 +15,15 @@ import {
   FaUtensils,
 } from "react-icons/fa"
 import { IoLocationSharp } from "react-icons/io5"
+import Map, {
+  GeolocateControl,
+  Marker,
+  NavigationControl,
+  Popup,
+} from "react-map-gl"
 import { Combobox } from "../combobox"
 import { Button } from "../ui/button"
-import { useRouter } from "next/navigation"
+import styles from "./styles.module.css"
 
 export function MapPinIcon({ place }: { place: any }) {
   if (!place.categories) place.categories = [place.category || "tourism"]

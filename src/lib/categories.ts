@@ -1,9 +1,9 @@
 export const categories = [
+  "Education",
+  "Airport",
   "Healthcare",
   "Accommodation",
-  "Education",
   "Activity",
-  "Airport",
   "Commercial",
   "Catering",
   "Heritage",
@@ -19,4 +19,4 @@ export const categories = [
   "Beach",
   "Sport",
   "Production",
-].toSorted()
+]

@@ -15,12 +15,15 @@ import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { categories } from "@/lib/categories"
 import { selectedPlaceIdAtom } from "@/stores/selected-location"
-import { locationForWeatherAtom, locationsAtom } from "@/stores/searched-locations"
+import {
+  locationForWeatherAtom,
+  locationsAtom,
+} from "@/stores/searched-locations"
 import { selectedCategoriesAtom } from "@/stores/selected-categories"
 
-const categorySet = new Set<string>(categories.slice(0, 3))
+const categorySet = new Set<string>(categories.slice(0, 4))
 let preSelectedCategories = categories[0]
-for (let i = 1; i < 3; i++) {
+for (let i = 1; i < 4; i++) {
   preSelectedCategories = preSelectedCategories + ", " + categories[i]
 }
 const min_radius = 1
@@ -30,7 +33,9 @@ export default function SearchNearbyAttractions() {
   const [userLocation, setUserLocation] = useAtom(userLocationAtom)
   const [city, setCity] = useState("")
   const [locations, setLocations] = useAtom(locationsAtom)
-  const [locationForWeather, setLocationForWeather] = useAtom(locationForWeatherAtom)
+  const [locationForWeather, setLocationForWeather] = useAtom(
+    locationForWeatherAtom,
+  )
   const [selectedLocationIndex, setSelectedLocationIndex] = useState(-1)
   const [selectedCategories, setSelectedCategories] = useAtom(
     selectedCategoriesAtom,
