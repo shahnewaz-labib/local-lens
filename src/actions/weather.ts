@@ -1,4 +1,6 @@
-const aqiApiKey = process.env.NEXT_PUBLIC_AQI_API_KEY
+"use server"
+
+const aqiApiKey = process.env.AQI_API_KEY
 
 export async function getWeather(lat: number, lon: number) {
   const forcastDays = 3
