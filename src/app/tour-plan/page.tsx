@@ -205,7 +205,9 @@ export default function Page() {
       {isLoading === true && (
         <p className="animate-pulse">Creating a plan for you....</p>
       )}
-      <div className="p-8 text-center">{planMessage}</div>
+      <div className="flex">
+        <pre className="text-wrap p-4 md:px-32">{planMessage}</pre>
+      </div>
     </div>
   )
 }
