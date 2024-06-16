@@ -1,3 +1,6 @@
+# Local Lens
+Originally developed during the **11th National ICT Fest 2024 OpenAPI Hackathon**, winning the 1st Runner Up position.
+
 ## Overview
 
 The main purpose of this app is to aid the user in discovering interesting places such as restaurants, schools, hospitals in a city. The user can chose to share their location and their city will be automatically detected. User can view the places in a map and also look at environmental conditions such temperature, humidity, air quality of the city. If a particular place is unlisted then the user can add this place and it will be synced with the data source. And the user can get an AI generated tour plan for a particular city.
